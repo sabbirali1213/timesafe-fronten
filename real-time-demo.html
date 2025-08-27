@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Demo - TimeSafe Delivery</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        h1 { 
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .demo-card {
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #10b981;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .timing-display {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .counter {
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Enhanced LiveTimestamp Component - EXACTLY like in main app
+        const LiveTimestamp = ({ dateString, status, context = "" }) => {
+          const [currentTime, setCurrentTime] = useState(Date.now());
+          const [tick, setTick] = useState(0);
+          const [isLive, setIsLive] = useState(true);
+          
+          useEffect(() => {
+            // AGGRESSIVE REAL-TIME UPDATES - 500ms intervals for smooth updates
+            const interval = setInterval(() => {
+              setCurrentTime(Date.now()); // Update current time
+              setTick(prev => prev + 1);   // Update tick counter
+              setIsLive(true);             // Confirm component is live
+            }, 500);
+            
+            // Fallback checker - if component stops updating, force restart
+            const fallbackInterval = setInterval(() => {
+              setIsLive(false);
+              setTimeout(() => setIsLive(true), 100);
+            }, 5000);
+            
+            return () => {
+              clearInterval(interval);
+              clearInterval(fallbackInterval);
+            };
+          }, [dateString]); // Restart when dateString changes
+          
+          if (!dateString) return React.createElement('span', {style: {color: '#ef4444', fontWeight: 'bold'}}, '⚠️ NO TIME');
+          
+          // Calculate timing using LIVE current time - ZERO CACHING
+          const orderDate = new Date(dateString);
+          
+          // Validate the date
+          if (isNaN(orderDate.getTime())) {
+            return React.createElement('span', {style: {color: '#ef4444', fontWeight: 'bold'}}, `⚠️ INVALID DATE: ${dateString}`);
+          }
+          
+          const diffMs = currentTime - orderDate.getTime();
+          const diffSec = Math.max(0, Math.floor(diffMs / 1000));
+          
+          let display = '';
+          let color = '';
+          let icon = '';
+          
+          if (diffSec < 60) {
+            display = `${diffSec}s ago`;
+            icon = '🆕';
+            color = 'background: #dcfce7; color: #166534; border: 2px solid #bbf7d0;';
+          } else if (diffSec < 3600) {
+            const m = Math.floor(diffSec / 60);
+            const s = diffSec % 60;
+            display = `${m}m ${s}s ago`;
+            icon = '🕒';
+            color = 'background: #dbeafe; color: #1e40af; border: 2px solid #93c5fd;';
+          } else if (diffSec < 86400) {
+            const h = Math.floor(diffSec / 3600);
+            const m = Math.floor((diffSec % 3600) / 60);
+            const s = diffSec % 60;
+            display = `${h}h ${m}m ${s}s ago`;
+            icon = '⚠️';
+            color = 'background: #fee2e2; color: #991b1b; border: 2px solid #fca5a5;';
+          } else {
+            const d = Math.floor(diffSec / 86400);
+            const h = Math.floor((diffSec % 86400) / 3600);
+            display = `${d}d ${h}h ago`;
+            icon = '📅';
+            color = 'background: #f3f4f6; color: #374151; border: 2px solid #d1d5db;';
+          }
+          
+          return React.createElement('div', 
+            {
+              style: {
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '8px 12px',
+                borderRadius: '8px',
+                fontFamily: 'monospace',
+                fontWeight: 'bold',
+                fontSize: '14px',
+                ...Object.fromEntries(color.split(';').filter(s => s.trim()).map(s => s.split(':').map(p => p.trim())))
+              }
+            },
+            React.createElement('span', {style: {fontSize: '16px', animation: 'pulse 2s infinite'}}, icon),
+            React.createElement('span', {style: {fontWeight: '900'}}, display),
+            React.createElement('span', {style: {
+              width: '8px', 
+              height: '8px', 
+              background: isLive ? '#10b981' : '#ef4444', 
+              borderRadius: '50%', 
+              animation: 'ping 1s infinite'
+            }}),
+            React.createElement('span', {style: {fontSize: '12px', background: 'white', padding: '2px 4px', borderRadius: '4px', color: '#333'}}, `#${tick}`),
+            React.createElement('span', {style: {fontSize: '12px', background: '#dcfce7', color: '#166534', padding: '2px 4px', borderRadius: '4px', fontFamily: 'monospace'}}, '🔴 LIVE'),
+            React.createElement('span', {style: {fontSize: '12px', background: '#fef3c7', color: '#92400e', padding: '2px 4px', borderRadius: '4px', fontFamily: 'monospace'}}, Math.floor(currentTime / 1000) % 100),
+            context && React.createElement('span', {style: {fontSize: '12px', opacity: '0.75'}}, `• ${context}`)
+          );
+        };
+
+        // Main Demo Component
+        const RealTimeDemo = () => {
+          const [currentTime, setCurrentTime] = useState(new Date());
+          const [demoOrderTime] = useState(new Date());
+
+          useEffect(() => {
+            const interval = setInterval(() => {
+              setCurrentTime(new Date());
+            }, 250); // Super fast updates
+            return () => clearInterval(interval);
+          }, []);
+
+          return React.createElement('div', {className: 'container'},
+            React.createElement('h1', null, '⏰ Real-Time TimeSafe Demo'),
+            
+            React.createElement('div', {className: 'demo-card'},
+              React.createElement('h2', null, '🔴 LIVE Clock'),
+              React.createElement('div', {className: 'timing-display'},
+                currentTime.toLocaleTimeString()
+              ),
+              React.createElement('p', null, 'This clock updates 4 times per second to show ultra-smooth real-time')
+            ),
+
+            React.createElement('div', {className: 'demo-card'},
+              React.createElement('h2', null, '📦 Demo Order (Just Created)'),
+              React.createElement('div', {style: {textAlign: 'center', margin: '20px 0'}},
+                React.createElement(LiveTimestamp, {
+                  dateString: demoOrderTime.toISOString(),
+                  status: 'placed',
+                  context: 'Demo Order'
+                })
+              ),
+              React.createElement('p', null, 'This shows exactly how order timing works in the vendor dashboard')
+            ),
+
+            React.createElement('div', {className: 'demo-card'},
+              React.createElement('h2', null, '🧪 Test Orders'),
+              React.createElement('div', {style: {display: 'grid', gap: '10px'}},
+                [30, 90, 300, 3600, 18000].map(seconds => {
+                  const testTime = new Date(Date.now() - seconds * 1000);
+                  return React.createElement('div', {key: seconds, style: {textAlign: 'center'}},
+                    React.createElement(LiveTimestamp, {
+                      dateString: testTime.toISOString(),
+                      status: 'placed',
+                      context: `Test ${seconds}s`
+                    })
+                  );
+                })
+              )
+            ),
+
+            React.createElement('div', {className: 'live-indicator'},
+              React.createElement('span', null, '🔴'),
+              React.createElement('span', null, 'REAL-TIME ACTIVE'),
+              React.createElement('span', {className: 'counter'}, Math.floor(Date.now() / 100) % 1000)
+            )
+          );
+        };
+
+        ReactDOM.render(React.createElement(RealTimeDemo), document.getElementById('root'));
+    </script>
+</body>
+</html>

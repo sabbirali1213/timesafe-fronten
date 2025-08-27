@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twilio OTP Test - TimeSafe Delivery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .title {
+            text-align: center;
+            color: #16a34a;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #16a34a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #15803d;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            word-wrap: break-word;
+        }
+        .success {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+        .error {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+        .info {
+            background: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+        }
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">🚀 Twilio OTP Test</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 30px;">
+            Test the complete Twilio SMS OTP system
+        </p>
+
+        <!-- Step 1: Send OTP -->
+        <div id="step1" class="step active">
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" placeholder="9876543210" value="9876543210">
+            </div>
+            <button onclick="sendOTP()">📱 Send OTP via Twilio</button>
+        </div>
+
+        <!-- Step 2: Verify OTP -->
+        <div id="step2" class="step">
+            <div class="form-group">
+                <label for="otp">Enter OTP:</label>
+                <input type="text" id="otp" placeholder="123456" maxlength="6">
+            </div>
+            <div class="form-group">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" placeholder="Test User" value="Twilio Test User">
+            </div>
+            <button onclick="verifyOTP()">🔐 Verify OTP & Login</button>
+            <button onclick="goBack()" style="background: #6b7280; margin-top: 5px;">← Back</button>
+        </div>
+
+        <!-- Step 3: Success -->
+        <div id="step3" class="step">
+            <div class="success result">
+                <h3>🎉 Success!</h3>
+                <p>Twilio OTP authentication completed successfully!</p>
+                <div id="userInfo"></div>
+            </div>
+            <button onclick="startOver()" style="background: #6b7280;">🔄 Test Again</button>
+        </div>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://timesafe.in/api';
+        // const API_BASE = 'http://localhost:8001/api'; // For local testing
+
+        function showStep(stepNumber) {
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            document.getElementById('step' + stepNumber).classList.add('active');
+        }
+
+        function showResult(message, type = 'info') {
+            const result = document.getElementById('result');
+            result.className = 'result ' + type;
+            result.innerHTML = message;
+            result.style.display = 'block';
+        }
+
+        function clearResult() {
+            document.getElementById('result').style.display = 'none';
+        }
+
+        async function sendOTP() {
+            const phone = document.getElementById('phone').value;
+            if (!phone) {
+                showResult('Please enter a phone number', 'error');
+                return;
+            }
+
+            clearResult();
+            showResult('📱 Sending OTP via Twilio...', 'info');
+
+            try {
+                const response = await fetch(API_BASE + '/auth/twilio-send-otp', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        phone_number: phone
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showResult(`✅ OTP sent successfully!<br>
+                               📱 Phone: ${data.phone_number}<br>
+                               📤 Provider: ${data.provider}<br>
+                               📞 Status: ${data.status}<br>
+                               ${data.demo_otp ? `🔑 Demo OTP: <strong>${data.demo_otp}</strong>` : ''}`, 'success');
+                    
+                    // Auto-fill OTP if demo mode
+                    if (data.demo_otp) {
+                        document.getElementById('otp').value = data.demo_otp;
+                    }
+                    
+                    setTimeout(() => {
+                        showStep(2);
+                        clearResult();
+                    }, 2000);
+                } else {
+                    showResult(`❌ Error: ${data.detail || 'Failed to send OTP'}`, 'error');
+                }
+            } catch (error) {
+                showResult(`❌ Network error: ${error.message}`, 'error');
+            }
+        }
+
+        async function verifyOTP() {
+            const phone = document.getElementById('phone').value;
+            const otp = document.getElementById('otp').value;
+            const name = document.getElementById('name').value;
+
+            if (!otp) {
+                showResult('Please enter the OTP', 'error');
+                return;
+            }
+
+            clearResult();
+            showResult('🔐 Verifying OTP...', 'info');
+
+            try {
+                const response = await fetch(API_BASE + '/auth/twilio-verify-otp', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        phone_number: phone,
+                        otp_code: otp,
+                        name: name || 'Test User',
+                        user_type: 'customer',
+                        age: 25,
+                        city: 'Bangalore',
+                        state: 'Karnataka'
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Show success step
+                    showStep(3);
+                    
+                    const userInfo = document.getElementById('userInfo');
+                    userInfo.innerHTML = `
+                        <strong>User Details:</strong><br>
+                        📱 Phone: ${data.user.phone}<br>
+                        👤 Name: ${data.user.name}<br>
+                        📧 Email: ${data.user.email}<br>
+                        🏷️ Type: ${data.user.user_type}<br>
+                        🔑 Token: ${data.access_token.substring(0, 30)}...<br>
+                        ✅ Verification: ${data.session_info.verification_method}
+                    `;
+                    
+                    clearResult();
+                } else {
+                    showResult(`❌ Verification failed: ${data.detail || 'Invalid OTP'}`, 'error');
+                }
+            } catch (error) {
+                showResult(`❌ Network error: ${error.message}`, 'error');
+            }
+        }
+
+        function goBack() {
+            showStep(1);
+            clearResult();
+        }
+
+        function startOver() {
+            showStep(1);
+            document.getElementById('phone').value = '9876543210';
+            document.getElementById('otp').value = '';
+            document.getElementById('name').value = 'Twilio Test User';
+            clearResult();
+        }
+
+        // Initialize
+        window.onload = function() {
+            console.log('🚀 Twilio OTP Test Page Loaded');
+            console.log('📡 API Base:', API_BASE);
+        };
+    </script>
+</body>
+</html>

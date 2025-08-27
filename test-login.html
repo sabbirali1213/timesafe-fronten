@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Test</title>
+</head>
+<body>
+    <h1>Login API Test</h1>
+    <form id="loginForm">
+        <input type="email" id="email" placeholder="Email" value="testdelivery@test.com">
+        <input type="password" id="password" placeholder="Password" value="TestPass123!">
+        <button type="submit">Test Login</button>
+    </form>
+    
+    <div id="result"></div>
+    
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const resultDiv = document.getElementById('result');
+            
+            try {
+                console.log('Testing login with:', email);
+                
+                const response = await fetch('https://timesafe-payments.preview.emergentagent.com/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                console.log('Response status:', response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('Login successful:', data);
+                    resultDiv.innerHTML = `
+                        <h2>SUCCESS</h2>
+                        <p>User Type: ${data.user.user_type}</p>
+                        <p>Token: ${data.access_token.substring(0, 50)}...</p>
+                    `;
+                } else {
+                    const error = await response.text();
+                    console.error('Login failed:', error);
+                    resultDiv.innerHTML = `<h2>FAILED</h2><p>${error}</p>`;
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+                resultDiv.innerHTML = `<h2>ERROR</h2><p>${error.message}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Date Time Display - TimeSafe Delivery</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        h1 { 
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .feature-section {
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .status {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .success {
+            background: rgba(16, 185, 129, 0.3);
+            border: 2px solid #10b981;
+        }
+        .datetime-display {
+            background: rgba(255,255,255,0.9);
+            color: #1e40af;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 16px;
+        }
+        .order-card {
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #3b82f6;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .live-time {
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 18px;
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 2px solid #3b82f6;
+        }
+        .date-format {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #f59e0b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📅 Order Date & Time Display</h1>
+        
+        <div class="status success">
+            <h3>✅ Real-Time Date & Time Added to All Order Pages!</h3>
+            <p>Format: 18/8/2025 11:20 AM - Updates every second</p>
+        </div>
+        
+        <div class="feature-section">
+            <h3>🕒 Live Current Date & Time</h3>
+            <div class="datetime-display">
+                <div class="pulse-dot"></div>
+                <span>📅 Current:</span>
+                <span class="live-time" id="current-datetime">Loading...</span>
+            </div>
+            <p style="text-align: center; margin-top: 15px; opacity: 0.8;">Updates every second • DD/MM/YYYY HH:MM AM/PM format</p>
+        </div>
+        
+        <div class="feature-section">
+            <h3>📦 Sample Orders with Date/Time</h3>
+            
+            <div class="order-card">
+                <div class="order-header">
+                    <div>
+                        <h4 style="margin: 0; color: #1f2937;">Order #ORD12345</h4>
+                        <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
+                            <div class="pulse-dot"></div>
+                            <span style="font-size: 14px; color: #3b82f6; font-weight: 600;">📅 Placed:</span>
+                            <span style="font-family: monospace; font-weight: bold; color: #1e40af;" id="order1-time">18/8/2025 10:45 AM</span>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="background: #10b981; color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: bold;">✅ Delivered</span>
+                        <div style="font-size: 14px; color: #6b7280; margin-top: 4px;">Total: ₹650</div>
+                    </div>
+                </div>
+                <p style="margin: 0; color: #6b7280;">Fresh Mutton Leg (1kg) • Ahmed Meat Shop</p>
+            </div>
+            
+            <div class="order-card">
+                <div class="order-header">
+                    <div>
+                        <h4 style="margin: 0; color: #1f2937;">Order #ORD12346</h4>
+                        <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
+                            <div class="pulse-dot"></div>
+                            <span style="font-size: 14px; color: #3b82f6; font-weight: 600;">📅 Placed:</span>
+                            <span style="font-family: monospace; font-weight: bold; color: #1e40af;" id="order2-time">18/8/2025 9:30 AM</span>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="background: #f59e0b; color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: bold;">🚚 In Transit</span>
+                        <div style="font-size: 14px; color: #6b7280; margin-top: 4px;">Total: ₹890</div>
+                    </div>
+                </div>
+                <p style="margin: 0; color: #6b7280;">Mutton Chops (500g) + Mutton Shoulder (500g) • Rajesh Fresh Meat</p>
+            </div>
+            
+            <div class="order-card">
+                <div class="order-header">
+                    <div>
+                        <h4 style="margin: 0; color: #1f2937;">Order #ORD12347</h4>
+                        <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
+                            <div class="pulse-dot"></div>
+                            <span style="font-size: 14px; color: #3b82f6; font-weight: 600;">📅 Placed:</span>
+                            <span style="font-family: monospace; font-weight: bold; color: #1e40af;" id="order3-time">Just now</span>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="background: #ef4444; color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: bold;">⏳ Processing</span>
+                        <div style="font-size: 14px; color: #6b7280; margin-top: 4px;">Total: ₹325</div>
+                    </div>
+                </div>
+                <p style="margin: 0; color: #6b7280;">Fresh Mutton Leg (500g) • Modern Meat Corner</p>
+            </div>
+        </div>
+        
+        <div class="feature-section">
+            <h3>🎯 Date/Time Display Locations:</h3>
+            <ul>
+                <li><strong>📱 Customer Orders:</strong> Current date/time in header + order placed times</li>
+                <li><strong>🏪 Vendor Dashboard:</strong> Live time display + order timestamps</li>
+                <li><strong>🚚 Delivery Partner:</strong> Current time + pickup/delivery times</li>
+                <li><strong>👑 Admin Panel:</strong> System time + order management times</li>
+                <li><strong>📋 All Order Cards:</strong> Individual order placed times</li>
+            </ul>
+        </div>
+        
+        <div class="date-format">
+            <h4 style="margin: 0 0 10px 0;">📊 Date Format Details:</h4>
+            <p style="margin: 0;"><strong>Format:</strong> DD/MM/YYYY HH:MM AM/PM</p>
+            <p style="margin: 5px 0 0 0;"><strong>Example:</strong> 18/8/2025 11:20 AM</p>
+            <p style="margin: 5px 0 0 0;"><strong>Updates:</strong> Every second for real-time accuracy</p>
+        </div>
+        
+        <div class="feature-section">
+            <h3>⚡ Real-Time Features:</h3>
+            <ul>
+                <li><strong>🔄 Auto-Update:</strong> Date and time refresh every second</li>
+                <li><strong>📅 Clear Format:</strong> Easy to read DD/MM/YYYY format</li>
+                <li><strong>🕐 12-Hour Time:</strong> AM/PM format for user-friendly display</li>
+                <li><strong>📍 Live Indicators:</strong> Pulsing dots show real-time status</li>
+                <li><strong>📱 Responsive:</strong> Works on all devices and screen sizes</li>
+                <li><strong>🎨 Consistent Design:</strong> Matches TimeSafe branding</li>
+            </ul>
+        </div>
+        
+        <div class="status success">
+            <h3>🎉 Perfect Order Tracking!</h3>
+            <p>All order pages now show current date/time and order timestamps for complete transparency!</p>
+        </div>
+    </div>
+
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+            
+            // Format: DD/MM/YYYY HH:MM AM/PM
+            const day = now.getDate().toString().padStart(2, '0');
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');
+            const year = now.getFullYear();
+            const hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const displayHours = (hours % 12 || 12).toString().padStart(2, '0');
+            
+            const formattedDateTime = `${day}/${month}/${year} ${displayHours}:${minutes}:${seconds} ${ampm}`;
+            
+            // Update current datetime
+            document.getElementById('current-datetime').textContent = formattedDateTime;
+            
+            // Update order times to show relative times
+            const order3Element = document.getElementById('order3-time');
+            const secondsAgo = Math.floor((now.getTime() - startTime) / 1000);
+            if (secondsAgo < 60) {
+                order3Element.textContent = `${secondsAgo}s ago`;
+            } else {
+                const minutesAgo = Math.floor(secondsAgo / 60);
+                order3Element.textContent = `${minutesAgo}m ${secondsAgo % 60}s ago`;
+            }
+        }
+        
+        // Track start time for "just now" order
+        const startTime = Date.now();
+        
+        // Update every second
+        setInterval(updateDateTime, 1000);
+        updateDateTime(); // Initial call
+        
+        // Update sample order times
+        const now = new Date();
+        const order1Time = new Date(now.getTime() - 2 * 60 * 60 * 1000); // 2 hours ago
+        const order2Time = new Date(now.getTime() - 3 * 60 * 60 * 1000); // 3 hours ago
+        
+        document.getElementById('order1-time').textContent = 
+            `${order1Time.getDate()}/${order1Time.getMonth() + 1}/${order1Time.getFullYear()} ${order1Time.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true})}`;
+        
+        document.getElementById('order2-time').textContent = 
+            `${order2Time.getDate()}/${order2Time.getMonth() + 1}/${order2Time.getFullYear()} ${order2Time.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true})}`;
+    </script>
+</body>
+</html>

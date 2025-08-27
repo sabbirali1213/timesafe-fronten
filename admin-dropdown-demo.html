@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dropdown Fix Demo - TimeSafe Delivery</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        h1 { 
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .demo-section {
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #fff;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        select {
+            cursor: pointer;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .option-demo {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            border-radius: 8px;
+            border: 2px solid transparent;
+        }
+        .option-demo.admin {
+            border-color: #9333ea;
+            background: #f3e8ff;
+        }
+        .status {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .success {
+            background: rgba(16, 185, 129, 0.3);
+            border: 2px solid #10b981;
+        }
+        .info {
+            background: rgba(59, 130, 246, 0.3);
+            border: 2px solid #3b82f6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👑 Admin Dropdown Fix Demo</h1>
+        
+        <div class="status success">
+            <h3>✅ Fix Applied Successfully!</h3>
+            <p>Admin option has been added to the registration dropdown</p>
+        </div>
+        
+        <div class="demo-section">
+            <h3>🔧 What Was Fixed:</h3>
+            <ul>
+                <li><strong>❌ Before:</strong> Only Customer, Vendor, Delivery Partner options</li>
+                <li><strong>✅ After:</strong> Added "👑 Admin" option to dropdown</li>
+                <li><strong>🔄 Improved:</strong> Added scrolling support for dropdown</li>
+                <li><strong>📱 Enhanced:</strong> Better placeholder text and layout</li>
+            </ul>
+        </div>
+        
+        <div class="demo-section">
+            <h3>📋 Registration Form Demo</h3>
+            
+            <div class="form-group">
+                <label for="demo-name">Your Name</label>
+                <input type="text" id="demo-name" placeholder="Enter your full name" value="Test Admin User">
+            </div>
+            
+            <div class="form-group">
+                <label for="demo-role">I am a</label>
+                <select id="demo-role" onchange="updateSelection()">
+                    <option value="">Select your role</option>
+                    <option value="customer">🛒 Customer</option>
+                    <option value="vendor">🏪 Vendor</option>
+                    <option value="delivery_partner">🚚 Delivery Partner</option>
+                    <option value="admin">👑 Admin</option>
+                </select>
+            </div>
+            
+            <div id="selection-display" class="status info" style="display: none;">
+                <p><strong>Selected:</strong> <span id="selected-role"></span></p>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h3>🎯 All Available User Types:</h3>
+            
+            <div class="option-demo">
+                <span style="margin-right: 10px;">🛒</span>
+                <strong>Customer</strong> - Browse and order products
+            </div>
+            
+            <div class="option-demo">
+                <span style="margin-right: 10px;">🏪</span>
+                <strong>Vendor</strong> - Sell products and manage inventory
+            </div>
+            
+            <div class="option-demo">
+                <span style="margin-right: 10px;">🚚</span>
+                <strong>Delivery Partner</strong> - Deliver orders to customers
+            </div>
+            
+            <div class="option-demo admin">
+                <span style="margin-right: 10px;">👑</span>
+                <strong>Admin</strong> - Manage platform and users (NEWLY ADDED!)
+            </div>
+        </div>
+        
+        <div class="status info">
+            <h3>🚀 How to Test:</h3>
+            <ol>
+                <li>Go to TimeSafe Delivery main page</li>
+                <li>Enter a new phone number (not registered before)</li>
+                <li>Click "Send OTP" and enter "123456"</li>
+                <li>You'll see the registration form with "I am a" dropdown</li>
+                <li>Click the dropdown - you should now see "👑 Admin" option!</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function updateSelection() {
+            const select = document.getElementById('demo-role');
+            const display = document.getElementById('selection-display');
+            const selectedRole = document.getElementById('selected-role');
+            
+            if (select.value) {
+                const options = {
+                    'customer': '🛒 Customer',
+                    'vendor': '🏪 Vendor', 
+                    'delivery_partner': '🚚 Delivery Partner',
+                    'admin': '👑 Admin'
+                };
+                
+                selectedRole.textContent = options[select.value] || select.value;
+                display.style.display = 'block';
+            } else {
+                display.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

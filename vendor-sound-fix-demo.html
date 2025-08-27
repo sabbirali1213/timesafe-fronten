@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Notification Sound Fix</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            transition: all 0.3s;
+            min-width: 200px;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .btn.success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+        .btn.danger {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+        }
+        .btn.test {
+            background: linear-gradient(135deg, #3742fa 0%, #2f3542 100%);
+        }
+        .status {
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .fix-steps {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .fix-steps h4 {
+            color: #856404;
+            margin-top: 0;
+        }
+        .fix-steps li {
+            margin: 10px 0;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔊 Vendor Notification Sound Fix</h1>
+        <p>Fix and Test Your Order Notification Sounds</p>
+    </div>
+
+    <div class="card">
+        <h3>🎯 Quick Sound Test</h3>
+        <p>First, activate audio and test if notification sounds work:</p>
+        
+        <button class="btn test" onclick="activateAndTest()">
+            🔊 ACTIVATE SOUND & TEST
+        </button>
+        
+        <button class="btn success" onclick="simulateNewOrder()">
+            📞 SIMULATE NEW ORDER CALL
+        </button>
+        
+        <button class="btn danger" onclick="stopAllSounds()">
+            🔇 STOP ALL SOUNDS
+        </button>
+        
+        <div id="soundStatus" class="status info">
+            ℹ️ Click "ACTIVATE SOUND & TEST" first to enable audio
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>🔧 How to Fix Vendor Notification Sounds</h3>
+        
+        <div class="fix-steps">
+            <h4>📝 Step-by-Step Fix:</h4>
+            <ol>
+                <li><strong>Login as Vendor</strong> in your app</li>
+                <li><strong>Look for Sound Controls</strong> in vendor dashboard header</li>
+                <li><strong>Click "Sounds On"</strong> to activate notifications</li>
+                <li><strong>Click "Test Ring"</strong> to test sound</li>
+                <li><strong>Check device volume</strong> and browser permissions</li>
+                <li><strong>Try refreshing</strong> the page if still no sound</li>
+            </ol>
+        </div>
+        
+        <div class="status info">
+            <strong>✅ Sound Controls Added:</strong><br>
+            • Enhanced sound activation with proper audio context<br>
+            • Better error handling and fallback sounds<br>
+            • Improved authentication for vendor order checking<br>
+            • Visual feedback for sound status
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>🚨 Troubleshooting</h3>
+        
+        <h4>If sounds still don't work:</h4>
+        <ul>
+            <li><strong>🔊 Check Device Volume:</strong> Make sure your device volume is up</li>
+            <li><strong>🌐 Browser Permissions:</strong> Allow audio in browser settings</li>
+            <li><strong>🔄 Refresh Page:</strong> Sometimes audio context needs a fresh start</li>
+            <li><strong>📱 Mobile Issues:</strong> Mobile browsers are stricter with audio</li>
+            <li><strong>🎧 Test with Headphones:</strong> Rule out speaker issues</li>
+        </ul>
+        
+        <div id="troubleshootResults"></div>
+    </div>
+
+    <div class="card">
+        <h3>📊 What Was Fixed</h3>
+        
+        <div class="status success">
+            <strong>🔧 Fixed Issues:</strong><br>
+            ✅ Enhanced audio context activation<br>
+            ✅ Better sound test functionality<br>
+            ✅ Fixed vendor authentication for order checking<br>
+            ✅ Added fallback sound mechanisms<br>
+            ✅ Improved error handling and logging
+        </div>
+        
+        <p><strong>🎯 Key Improvements:</strong></p>
+        <ul>
+            <li>Proper audio initialization on user interaction</li>
+            <li>Multiple fallback sound mechanisms</li>
+            <li>Enhanced debugging and error messages</li>
+            <li>Better visual feedback for sound status</li>
+            <li>Fixed authentication token usage for vendors</li>
+        </ul>
+    </div>
+
+    <script>
+        let audioContext = null;
+        let soundEnabled = false;
+
+        async function activateAndTest() {
+            const statusEl = document.getElementById('soundStatus');
+            
+            try {
+                // Initialize audio context (same as in your app)
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Test phone-like ring sound (same as vendor app)
+                await playPhoneRing();
+                
+                soundEnabled = true;
+                statusEl.className = 'status success';
+                statusEl.innerHTML = '✅ Audio activated! Sound test played successfully. You should have heard a phone-like ring.';
+                
+            } catch (error) {
+                statusEl.className = 'status error';
+                statusEl.innerHTML = `❌ Audio activation failed: ${error.message}<br>Try clicking again or check browser permissions.`;
+            }
+        }
+
+        async function playPhoneRing() {
+            if (!audioContext) return;
+
+            // Create phone-like ring (same pattern as your app)
+            const oscillator1 = audioContext.createOscillator();
+            const oscillator2 = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator1.connect(gainNode);
+            oscillator2.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // Phone ring frequencies
+            oscillator1.frequency.setValueAtTime(800, audioContext.currentTime);
+            oscillator2.frequency.setValueAtTime(900, audioContext.currentTime);
+            
+            oscillator1.type = 'sine';
+            oscillator2.type = 'sine';
+            
+            // Ring pattern
+            gainNode.gain.setValueAtTime(0.4, audioContext.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 1.0);
+            gainNode.gain.linearRampToValueAtTime(0.4, audioContext.currentTime + 1.3);
+            
+            const ringDuration = 1.3;
+            
+            oscillator1.start(audioContext.currentTime);
+            oscillator2.start(audioContext.currentTime);
+            
+            oscillator1.stop(audioContext.currentTime + ringDuration);
+            oscillator2.stop(audioContext.currentTime + ringDuration);
+        }
+
+        async function simulateNewOrder() {
+            const statusEl = document.getElementById('soundStatus');
+            
+            if (!soundEnabled) {
+                statusEl.className = 'status error';
+                statusEl.innerHTML = '❌ Please activate sound first by clicking "ACTIVATE SOUND & TEST"';
+                return;
+            }
+
+            statusEl.className = 'status info';
+            statusEl.innerHTML = '📞 SIMULATING NEW ORDER CALL... (This is what vendors hear when orders arrive)';
+            
+            // Play ring 3 times like continuous ringing
+            for (let i = 0; i < 3; i++) {
+                await playPhoneRing();
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+            
+            statusEl.className = 'status success';
+            statusEl.innerHTML = '✅ NEW ORDER SIMULATION COMPLETE! This is exactly what vendors hear for real orders.';
+        }
+
+        function stopAllSounds() {
+            const statusEl = document.getElementById('soundStatus');
+            
+            if (audioContext) {
+                audioContext.close();
+                audioContext = null;
+            }
+            
+            soundEnabled = false;
+            statusEl.className = 'status info';
+            statusEl.innerHTML = '🔇 All sounds stopped. Click "ACTIVATE SOUND & TEST" to re-enable.';
+        }
+
+        // Auto-check browser audio support
+        window.onload = function() {
+            const troubleshootEl = document.getElementById('troubleshootResults');
+            
+            let issues = [];
+            
+            if (!window.AudioContext && !window.webkitAudioContext) {
+                issues.push('❌ Browser does not support Web Audio API');
+            }
+            
+            if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
+                issues.push('⚠️ HTTPS required for audio on most browsers');
+            }
+            
+            if (issues.length > 0) {
+                troubleshootEl.innerHTML = `<div class="status error"><strong>Potential Issues Found:</strong><br>${issues.join('<br>')}</div>`;
+            } else {
+                troubleshootEl.innerHTML = `<div class="status success"><strong>✅ Browser Audio Support:</strong> Good to go!</div>`;
+            }
+        };
+    </script>
+</body>
+</html>

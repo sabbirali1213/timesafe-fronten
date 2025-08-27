@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeSafe Delivery - REAL-TIME Timing Fixed</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { color: #dc2626; text-align: center; margin-bottom: 30px; }
+        
+        .real-time-demo { background: white; padding: 20px; border-radius: 10px; margin: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .timing-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+        .before, .after { padding: 15px; border-radius: 8px; }
+        .before { background: #fee2e2; border-left: 4px solid #dc2626; }
+        .after { background: #dcfce7; border-left: 4px solid #16a34a; }
+        
+        .live-clock { text-align: center; font-size: 2em; color: #16a34a; margin: 20px 0; 
+                     font-family: 'Courier New', monospace; font-weight: bold; }
+        .timing-display { font-family: 'Courier New', monospace; font-weight: bold; 
+                         background: #f3f4f6; padding: 8px 12px; border-radius: 6px; margin: 8px 0; }
+        
+        .improvement { background: white; padding: 20px; border-radius: 10px; margin: 20px 0; }
+        .feature-highlight { background: #16a34a; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; }
+        .problem { background: #dc2626; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; }
+        
+        .update-indicator { color: #16a34a; font-size: 12px; text-align: center; }
+        .pulsing-dot { width: 8px; height: 8px; background: #16a34a; border-radius: 50%; 
+                      display: inline-block; animation: pulse 1s infinite; margin-right: 8px; }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.1); }
+        }
+        
+        .live-demo { background: linear-gradient(135deg, #dcfce7, #bbf7d0); 
+                    border: 2px solid #16a34a; padding: 20px; border-radius: 10px; margin: 20px 0; }
+    </style>
+    <script>
+        function updateRealTime() {
+            const now = new Date();
+            
+            // Update live clock
+            document.getElementById('live-clock').textContent = now.toLocaleTimeString();
+            
+            // Simulate different order ages with REAL-TIME updates
+            const orders = [
+                { id: 'live1', seconds: 15 },   // 15 seconds ago
+                { id: 'live2', seconds: 125 },  // 2 minutes 5 seconds ago  
+                { id: 'live3', seconds: 847 },  // 14 minutes 7 seconds ago
+                { id: 'live4', seconds: 4567 }, // 1 hour 16 minutes 7 seconds ago
+            ];
+            
+            orders.forEach(order => {
+                let timing = '';
+                const s = order.seconds + Math.floor((Date.now() - startTime) / 1000);
+                
+                if (s < 60) {
+                    timing = `${s}s ago`;
+                } else if (s < 3600) {
+                    const min = Math.floor(s / 60);
+                    const sec = s % 60;
+                    timing = `${min}m ${sec}s ago`;
+                } else {
+                    const hr = Math.floor(s / 3600);
+                    const min = Math.floor((s % 3600) / 60);
+                    const sec = s % 60;
+                    timing = `${hr}h ${min}m ${sec}s ago`;
+                }
+                
+                document.getElementById(order.id).textContent = timing;
+            });
+        }
+        
+        let startTime = Date.now();
+        
+        // Update every 500ms for smooth real-time effect
+        setInterval(updateRealTime, 500);
+        window.onload = function() {
+            updateRealTime();
+            startTime = Date.now();
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ REAL-TIME Timing Fixed - No More Late Time!</h1>
+        
+        <div class="live-clock" id="live-clock"></div>
+        <p class="update-indicator">
+            <span class="pulsing-dot"></span>
+            Updates every 500ms for ultra-responsive real-time timing
+        </p>
+
+        <div class="timing-comparison">
+            <div class="before">
+                <h3>❌ BEFORE (Problem)</h3>
+                <p><span class="problem">Late Time Issues:</span></p>
+                <ul>
+                    <li>❌ Showing outdated time</li>
+                    <li>❌ Slow updates (1+ seconds delay)</li>
+                    <li>❌ Inaccurate calculations</li>
+                    <li>❌ No real-time sync</li>
+                </ul>
+                <div class="timing-display">
+                    5 hours ago (static, wrong)
+                </div>
+            </div>
+            
+            <div class="after">
+                <h3>✅ AFTER (Fixed)</h3>
+                <p><span class="feature-highlight">Real-Time Precision:</span></p>
+                <ul>
+                    <li>✅ Live current time display</li>
+                    <li>✅ Updates every 500ms</li>
+                    <li>✅ Exact second precision</li>
+                    <li>✅ Perfect synchronization</li>
+                </ul>
+                <div class="timing-display">
+                    <span id="live1">Loading...</span> (live updating)
+                </div>
+            </div>
+        </div>
+
+        <div class="live-demo">
+            <h2>🎯 Live Real-Time Demonstration</h2>
+            <p><strong>Watch these timings update in real-time every 500ms:</strong></p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
+                <div style="background: rgba(255,255,255,0.7); padding: 15px; border-radius: 8px;">
+                    <strong>🆕 Fresh Order</strong><br>
+                    <span class="timing-display" id="live1">Loading...</span>
+                    <small>Just placed • Very responsive</small>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.7); padding: 15px; border-radius: 8px;">
+                    <strong>🕒 Recent Order</strong><br>
+                    <span class="timing-display" id="live2">Loading...</span>
+                    <small>Shows minutes + seconds</small>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.7); padding: 15px; border-radius: 8px;">
+                    <strong>⏳ Waiting Order</strong><br>
+                    <span class="timing-display" id="live3">Loading...</span>
+                    <small>Getting urgent • Exact timing</small>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.7); padding: 15px; border-radius: 8px;">
+                    <strong>🚨 Old Order</strong><br>
+                    <span class="timing-display" id="live4">Loading...</span>
+                    <small>Hours + minutes + seconds</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="improvement">
+            <h2>🔧 Technical Improvements Made</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                <div style="padding: 15px; background: #f9fafb; border-radius: 8px;">
+                    <h3>⚡ Faster Updates</h3>
+                    <p>500ms intervals instead of 1000ms for smoother real-time updates</p>
+                </div>
+                <div style="padding: 15px; background: #f9fafb; border-radius: 8px;">
+                    <h3>🎯 Better Precision</h3>
+                    <p>Millisecond-level calculations for exact timing accuracy</p>
+                </div>
+                <div style="padding: 15px; background: #f9fafb; border-radius: 8px;">
+                    <h3>🔄 Auto Re-sync</h3>
+                    <p>Component re-syncs when dateString changes</p>
+                </div>
+                <div style="padding: 15px; background: #f9fafb; border-radius: 8px;">
+                    <h3>🕐 Live Clock</h3>
+                    <p>Current time display in dashboard headers</p>
+                </div>
+                <div style="padding: 15px; background: #f9fafb; border-radius: 8px;">
+                    <h3>📊 Visual Indicators</h3>
+                    <p>Pulsing dots and monospace fonts for better visibility</p>
+                </div>
+                <div style="padding: 15px; background: #f9fafb; border-radius: 8px;">
+                    <h3>🚫 Error Prevention</h3>
+                    <p>Prevents negative time and handles invalid dates</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0; padding: 20px; background: #16a34a; color: white; border-radius: 10px;">
+            <h2>⚡ Experience REAL-TIME Timing Now!</h2>
+            <p>No more late time - see exact real-time updates every 500ms!</p>
+            <p><strong>Test Credentials:</strong></p>
+            <p>Vendor: vendor@test.com / password123</p>
+            <p>Customer: customer@test.com / password123</p>
+            <div style="margin: 20px 0;">
+                <a href="https://timesafe-payments.preview.emergentagent.com" 
+                   style="background: white; color: #16a34a; padding: 12px 24px; border-radius: 5px; 
+                          text-decoration: none; font-weight: bold;">
+                    🏪 Test Real-Time Vendor Panel
+                </a>
+            </div>
+            <p style="font-size: 14px; opacity: 0.9;">
+                <span class="pulsing-dot"></span>
+                Watch timing update every 500ms - Perfect real-time accuracy!
+            </p>
+        </div>
+    </div>
+</body>
+</html>

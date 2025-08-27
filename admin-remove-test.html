@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Remove Function Test - TimeSafe Delivery</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #9333ea 0%, #7c3aed 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        h1 { 
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .fix-section {
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .status {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .success {
+            background: rgba(16, 185, 129, 0.3);
+            border: 2px solid #10b981;
+        }
+        .warning {
+            background: rgba(245, 158, 11, 0.3);
+            border: 2px solid #f59e0b;
+        }
+        .test-step {
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #9333ea;
+        }
+        .code {
+            background: rgba(0,0,0,0.3);
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👑 Admin Remove Function Fix</h1>
+        
+        <div class="status success">
+            <h3>✅ Admin Remove Functions Fixed!</h3>
+            <p>JWT authentication has been added to all admin remove operations</p>
+        </div>
+        
+        <div class="fix-section">
+            <h3>🔧 What Was Fixed:</h3>
+            <ul>
+                <li><strong>❌ Before:</strong> Remove buttons didn't include JWT authentication tokens</li>
+                <li><strong>❌ Before:</strong> Backend received unauthorized requests (401/403 errors)</li>
+                <li><strong>✅ After:</strong> All remove functions now include proper JWT headers</li>
+                <li><strong>✅ After:</strong> Better error handling with specific error messages</li>
+                <li><strong>✅ After:</strong> Authentication validation before API calls</li>
+            </ul>
+        </div>
+        
+        <div class="fix-section">
+            <h3>🛠️ Functions Updated:</h3>
+            
+            <div class="test-step">
+                <strong>1. removeUser() Function</strong>
+                <div class="code">
+                    ✅ Added JWT token: headers.Authorization = `Bearer ${user.token}`<br>
+                    ✅ Added authentication check before API call<br>
+                    ✅ Enhanced error messages for 401/403/400/404 errors<br>
+                    ✅ Protection against deleting yourself
+                </div>
+            </div>
+            
+            <div class="test-step">
+                <strong>2. removeProduct() Function</strong>
+                <div class="code">
+                    ✅ Added JWT token: headers.Authorization = `Bearer ${user.token}`<br>
+                    ✅ Added authentication check before API call<br>
+                    ✅ Enhanced error messages for 401/403/404 errors<br>
+                    ✅ Proper product deletion confirmation
+                </div>
+            </div>
+            
+            <div class="test-step">
+                <strong>3. All Admin Fetch Functions</strong>
+                <div class="code">
+                    ✅ fetchUsers() - Added JWT authentication<br>
+                    ✅ fetchProducts() - Added JWT authentication<br>
+                    ✅ fetchStats() - Added JWT authentication<br>
+                    ✅ fetchOrders() - Added JWT authentication
+                </div>
+            </div>
+        </div>
+        
+        <div class="fix-section">
+            <h3>🎯 How to Test:</h3>
+            
+            <div class="test-step">
+                <strong>Step 1: Login as Admin</strong>
+                <p>Use the registration form with "👑 Admin" selected to create an admin account</p>
+            </div>
+            
+            <div class="test-step">
+                <strong>Step 2: Access Admin Dashboard</strong>
+                <p>Navigate to the admin dashboard - you should see Users and Products tabs</p>
+            </div>
+            
+            <div class="test-step">
+                <strong>Step 3: Test User Removal</strong>
+                <p>Go to Users tab → Click "Remove User" button → Should work with proper confirmation</p>
+            </div>
+            
+            <div class="test-step">
+                <strong>Step 4: Test Product Removal</strong>
+                <p>Go to Products tab → Click "Remove Product" button → Should work with proper confirmation</p>
+            </div>
+        </div>
+        
+        <div class="status warning">
+            <h3>⚠️ Important Notes:</h3>
+            <ul>
+                <li>Only admins can remove users and products</li>
+                <li>Admin users cannot delete themselves</li>
+                <li>All removals require confirmation dialogs</li>
+                <li>Proper error messages are shown for any issues</li>
+                <li>JWT tokens are automatically included in requests</li>
+            </ul>
+        </div>
+        
+        <div class="fix-section">
+            <h3>🔒 Security Features:</h3>
+            <ul>
+                <li><strong>JWT Authentication:</strong> All requests include proper bearer tokens</li>
+                <li><strong>Admin-Only Access:</strong> Backend validates admin user_type</li>
+                <li><strong>Self-Protection:</strong> Admins cannot delete themselves</li>
+                <li><strong>Confirmation Dialogs:</strong> Double-check before permanent deletions</li>
+                <li><strong>Error Handling:</strong> Clear messages for authentication/authorization failures</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

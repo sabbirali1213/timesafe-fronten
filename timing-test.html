@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REAL-TIME TIMING TEST</title>
+    <style>
+        body { font-family: 'Courier New', monospace; margin: 20px; background: #f0f0f0; }
+        .timer { background: white; padding: 20px; margin: 10px; border: 3px solid #007bff; border-radius: 10px; }
+        .timer.urgent { border-color: #dc3545; background: #ffe6e6; }
+        .counter { font-size: 24px; font-weight: bold; color: #007bff; }
+        .time { font-size: 18px; color: #333; }
+    </style>
+</head>
+<body>
+    <h1>⚡ REAL-TIME TIMING TEST - GUARANTEED TO UPDATE</h1>
+    
+    <div class="timer">
+        <h3>🕐 Current Time (Updates Every Second)</h3>
+        <div class="counter" id="current-time">Loading...</div>
+        <div class="time">Update Counter: <span id="time-counter">0</span></div>
+    </div>
+    
+    <div class="timer urgent">
+        <h3>⏰ Order Timer: 5 Minutes Ago (Should Count Up)</h3>
+        <div class="counter" id="order-timer">Loading...</div>
+        <div class="time">This simulates an order placed 5 minutes ago</div>
+    </div>
+    
+    <div class="timer urgent">
+        <h3>🚨 Order Timer: 2 Hours Ago (Should Count Up)</h3>
+        <div class="counter" id="old-order-timer">Loading...</div>
+        <div class="time">This simulates an old order placed 2 hours ago</div>
+    </div>
+    
+    <div class="timer">
+        <h3>📊 Proof of Real-Time Updates</h3>
+        <p>If these timers are updating every second with exact precision, then real-time timing is working!</p>
+        <p>If they show static times like "5h 30m ago", then timing is broken.</p>
+    </div>
+
+    <script>
+        let updateCounter = 0;
+        
+        // Order creation times (simulated)
+        const fiveMinutesAgo = new Date(Date.now() - (5 * 60 * 1000));
+        const twoHoursAgo = new Date(Date.now() - (2 * 60 * 60 * 1000));
+        
+        function updateTimers() {
+            updateCounter++;
+            const now = new Date();
+            
+            // Update current time
+            document.getElementById('current-time').textContent = now.toLocaleTimeString();
+            document.getElementById('time-counter').textContent = updateCounter;
+            
+            // Update 5-minute order timer
+            const diff5min = Math.floor((now - fiveMinutesAgo) / 1000);
+            const minutes5 = Math.floor(diff5min / 60);
+            const seconds5 = diff5min % 60;
+            document.getElementById('order-timer').textContent = `${minutes5}m ${seconds5}s ago`;
+            
+            // Update 2-hour order timer  
+            const diff2hr = Math.floor((now - twoHoursAgo) / 1000);
+            const hours2 = Math.floor(diff2hr / 3600);
+            const minutes2 = Math.floor((diff2hr % 3600) / 60);
+            const seconds2 = diff2hr % 60;
+            document.getElementById('old-order-timer').textContent = `${hours2}h ${minutes2}m ${seconds2}s ago`;
+        }
+        
+        // Update every second
+        setInterval(updateTimers, 1000);
+        updateTimers(); // Initial update
+    </script>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeatExpress - Nearby Vendors (Zomato Style)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .vendor-card:hover { transform: translateY(-2px); transition: all 0.3s ease; }
+        .pulse { animation: pulse 2s infinite; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-orange-600">🥩 MeatExpress</h1>
+            <p class="text-gray-600">Nearby Vendors Feature - Like Zomato</p>
+        </div>
+
+        <!-- Location Banner -->
+        <div class="bg-gradient-to-r from-green-500 to-blue-500 text-white p-4 rounded-lg mb-6">
+            <div class="flex items-center justify-center">
+                <div class="text-center">
+                    <div class="flex items-center justify-center mb-2">
+                        <span class="text-2xl mr-2">📍</span>
+                        <span class="text-lg font-semibold">Detecting your location...</span>
+                    </div>
+                    <p class="text-sm opacity-90">Finding the best mutton vendors near you</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nearby Vendors Section -->
+        <div class="bg-white rounded-lg shadow-sm border p-6">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+                        📍 Vendors Near You
+                    </h2>
+                    <p class="text-gray-600">Fresh mutton from nearby vendors • Fast delivery</p>
+                </div>
+                <button class="border border-gray-300 px-4 py-2 rounded-lg text-sm hover:bg-gray-50">
+                    🔄 Refresh Location
+                </button>
+            </div>
+
+            <!-- Vendors Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Vendor 1 -->
+                <div class="vendor-card bg-white border border-gray-200 rounded-lg p-4 hover:shadow-lg cursor-pointer">
+                    <div class="flex items-start space-x-3">
+                        <!-- Vendor Avatar -->
+                        <div class="w-12 h-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+                            A
+                        </div>
+                        
+                        <!-- Vendor Info -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-semibold text-gray-900">Ahmed's Fresh Meat</h3>
+                                <div class="flex items-center">
+                                    <span class="text-yellow-400">★</span>
+                                    <span class="text-sm text-gray-600 ml-1">4.8</span>
+                                </div>
+                            </div>
+                            
+                            <p class="text-sm text-gray-500">ahmed@meatexpress.com</p>
+                            
+                            <!-- Distance & Time -->
+                            <div class="flex items-center space-x-3 mt-2">
+                                <div class="flex items-center">
+                                    <span class="text-green-600">🧭</span>
+                                    <span class="text-sm text-gray-700 ml-1 font-medium">0.8 km</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="text-blue-600">🚚</span>
+                                    <span class="text-sm text-gray-700 ml-1 font-medium">18 min</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Orders Badge -->
+                            <div class="mt-2">
+                                <span class="border border-gray-300 px-2 py-1 rounded-full text-xs text-gray-600">
+                                    245+ orders
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Action -->
+                    <button class="w-full mt-3 bg-green-600 hover:bg-green-700 text-white text-sm py-2 rounded-lg">
+                        View Products (8)
+                    </button>
+                </div>
+
+                <!-- Vendor 2 -->
+                <div class="vendor-card bg-white border border-gray-200 rounded-lg p-4 hover:shadow-lg cursor-pointer">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+                            R
+                        </div>
+                        
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-semibold text-gray-900">Raj Premium Meats</h3>
+                                <div class="flex items-center">
+                                    <span class="text-yellow-400">★</span>
+                                    <span class="text-sm text-gray-600 ml-1">4.6</span>
+                                </div>
+                            </div>
+                            
+                            <p class="text-sm text-gray-500">raj@meatexpress.com</p>
+                            
+                            <div class="flex items-center space-x-3 mt-2">
+                                <div class="flex items-center">
+                                    <span class="text-green-600">🧭</span>
+                                    <span class="text-sm text-gray-700 ml-1 font-medium">1.2 km</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="text-blue-600">🚚</span>
+                                    <span class="text-sm text-gray-700 ml-1 font-medium">22 min</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-2">
+                                <span class="border border-gray-300 px-2 py-1 rounded-full text-xs text-gray-600">
+                                    189+ orders
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full mt-3 bg-green-600 hover:bg-green-700 text-white text-sm py-2 rounded-lg">
+                        View Products (12)
+                    </button>
+                </div>
+
+                <!-- Vendor 3 -->
+                <div class="vendor-card bg-white border border-gray-200 rounded-lg p-4 hover:shadow-lg cursor-pointer">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+                            S
+                        </div>
+                        
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-semibold text-gray-900">Sharma Meat Shop</h3>
+                                <div class="flex items-center">
+                                    <span class="text-yellow-400">★</span>
+                                    <span class="text-sm text-gray-600 ml-1">4.9</span>
+                                </div>
+                            </div>
+                            
+                            <p class="text-sm text-gray-500">sharma@meatexpress.com</p>
+                            
+                            <div class="flex items-center space-x-3 mt-2">
+                                <div class="flex items-center">
+                                    <span class="text-green-600">🧭</span>
+                                    <span class="text-sm text-gray-700 ml-1 font-medium">1.5 km</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="text-blue-600">🚚</span>
+                                    <span class="text-sm text-gray-700 ml-1 font-medium">25 min</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-2">
+                                <span class="border border-gray-300 px-2 py-1 rounded-full text-xs text-gray-600">
+                                    367+ orders
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full mt-3 bg-green-600 hover:bg-green-700 text-white text-sm py-2 rounded-lg">
+                        View Products (15)
+                    </button>
+                </div>
+
+                <!-- Vendor 4 -->
+                <div class="vendor-card bg-white border border-gray-200 rounded-lg p-4 hover:shadow-lg cursor-pointer">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+                            K
+                        </div>
+                        
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-semibold text-gray-900">Khan's Halal Meat</h3>
+                                <div class="flex items-center">
+                                    <span class="text-yellow-400">★</span>
+                                    <span class="text-sm text-gray-600 ml-1">4.7</span>
+                                </div>
+                            </div>
+                            
+                            <p class="text-sm text-gray-500">khan@meatexpress.com</p>
+                            
+                            <div class="flex items-center space-x-3 mt-2">
+                                <div class="flex items-center">
+                                    <span class="text-green-600">🧭</span>
+                                    <span class="text-sm text-gray-700 ml-1 font-medium">2.1 km</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="text-blue-600">🚚</span>
+                                    <span class="text-sm text-gray-700 ml-1 font-medium">28 min</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-2">
+                                <span class="border border-gray-300 px-2 py-1 rounded-full text-xs text-gray-600">
+                                    156+ orders
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full mt-3 bg-green-600 hover:bg-green-700 text-white text-sm py-2 rounded-lg">
+                        View Products (6)
+                    </button>
+                </div>
+
+                <!-- Vendor 5 -->
+                <div class="vendor-card bg-white border border-gray-200 rounded-lg p-4 hover:shadow-lg cursor-pointer">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+                            V
+                        </div>
+                        
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-semibold text-gray-900">Verma Fresh Store</h3>
+                                <div class="flex items-center">
+                                    <span class="text-yellow-400">★</span>
+                                    <span class="text-sm text-gray-600 ml-1">4.4</span>
+                                </div>
+                            </div>
+                            
+                            <p class="text-sm text-gray-500">verma@meatexpress.com</p>
+                            
+                            <div class="flex items-center space-x-3 mt-2">
+                                <div class="flex items-center">
+                                    <span class="text-green-600">🧭</span>
+                                    <span class="text-sm text-gray-700 ml-1 font-medium">2.8 km</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="text-blue-600">🚚</span>
+                                    <span class="text-sm text-gray-700 ml-1 font-medium">35 min</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-2">
+                                <span class="border border-gray-300 px-2 py-1 rounded-full text-xs text-gray-600">
+                                    89+ orders
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full mt-3 bg-green-600 hover:bg-green-700 text-white text-sm py-2 rounded-lg">
+                        View Products (4)
+                    </button>
+                </div>
+
+                <!-- Vendor 6 -->
+                <div class="vendor-card bg-white border border-gray-200 rounded-lg p-4 hover:shadow-lg cursor-pointer">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-12 h-12 bg-gradient-to-br from-red-400 to-pink-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+                            P
+                        </div>
+                        
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-semibold text-gray-900">Patel Meat Corner</h3>
+                                <div class="flex items-center">
+                                    <span class="text-yellow-400">★</span>
+                                    <span class="text-sm text-gray-600 ml-1">4.5</span>
+                                </div>
+                            </div>
+                            
+                            <p class="text-sm text-gray-500">patel@meatexpress.com</p>
+                            
+                            <div class="flex items-center space-x-3 mt-2">
+                                <div class="flex items-center">
+                                    <span class="text-green-600">🧭</span>
+                                    <span class="text-sm text-gray-700 ml-1 font-medium">3.2 km</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="text-blue-600">🚚</span>
+                                    <span class="text-sm text-gray-700 ml-1 font-medium">38 min</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-2">
+                                <span class="border border-gray-300 px-2 py-1 rounded-full text-xs text-gray-600">
+                                    124+ orders
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full mt-3 bg-green-600 hover:bg-green-700 text-white text-sm py-2 rounded-lg">
+                        View Products (9)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bottom Actions -->
+            <div class="flex justify-center space-x-4 mt-6">
+                <button class="border border-orange-300 text-orange-600 px-6 py-2 rounded-lg hover:bg-orange-50 transition-colors">
+                    🔄 Refresh Location
+                </button>
+                <button class="border border-gray-300 text-gray-600 px-6 py-2 rounded-lg hover:bg-gray-50 transition-colors">
+                    Hide Nearby Vendors
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8 py-4 text-gray-500 text-sm">
+            <p>✅ This is exactly how your MeatExpress "Nearby Vendors" feature looks!</p>
+            <p>🎯 Zomato-style location-based vendor discovery with real-time distance and delivery estimates</p>
+            <p>📍 Automatically detects customer location and shows 6 nearest vendors sorted by distance</p>
+        </div>
+    </div>
+</body>
+</html>

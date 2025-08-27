@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeatExpress - Buy Now Feature Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .buy-now-btn { 
+            animation: buynow-pulse 2s infinite;
+            transition: all 0.3s ease;
+        }
+        .buy-now-btn:hover { transform: scale(1.05); }
+        @keyframes buynow-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+        }
+        .cart-btn { transition: all 0.3s ease; }
+        .cart-btn:hover { transform: translateY(-1px); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-orange-600">🥩 MeatExpress</h1>
+            <p class="text-gray-600">New "Buy Now" Feature - Skip the Cart, Buy Instantly!</p>
+        </div>
+
+        <!-- Feature Explanation -->
+        <div class="bg-gradient-to-r from-red-500 to-orange-500 text-white p-6 rounded-lg mb-8">
+            <div class="text-center">
+                <h2 class="text-2xl font-bold mb-3">⚡ Buy Now Feature</h2>
+                <p class="text-lg mb-4">Skip the cart and checkout instantly with our new Buy Now buttons!</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                    <div class="bg-white bg-opacity-20 rounded-lg p-3">
+                        <strong>🛒 Add to Cart</strong><br>
+                        Add items to cart for later checkout
+                    </div>
+                    <div class="bg-white bg-opacity-20 rounded-lg p-3">
+                        <strong>⚡ Buy Now</strong><br>
+                        Skip cart, go directly to checkout
+                    </div>
+                    <div class="bg-white bg-opacity-20 rounded-lg p-3">
+                        <strong>🚀 Quick Buy</strong><br>
+                        One-click purchase for any weight
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Demo -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Product 1 -->
+            <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <div class="relative aspect-square bg-gradient-to-br from-orange-100 to-red-100 rounded-t-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1588347818036-7b6e01e4e48d?w=300" 
+                         alt="Premium Mutton" 
+                         class="w-full h-full object-cover">
+                    <div class="absolute top-2 left-2">
+                        <span class="bg-red-500 text-white font-bold text-xs px-2 py-1 rounded">-25% OFF</span>
+                    </div>
+                    <span class="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded">Fresh</span>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg text-gray-800 mb-2">Premium Fresh Mutton Cuts</h3>
+                    <div class="flex items-center mb-3">
+                        <div class="flex text-yellow-400 text-sm mr-2">★★★★☆</div>
+                        <span class="text-xs text-gray-500">(4.2) • 45+ ordered this month</span>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <span class="text-2xl font-bold text-gray-900">₹600</span>
+                        <span class="text-lg text-gray-500 line-through ml-2">₹800</span>
+                        <span class="text-sm text-green-600 font-semibold ml-2">per kg</span>
+                    </div>
+
+                    <!-- Add to Cart Button -->
+                    <button class="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 mb-2 rounded cart-btn">
+                        🛒 Add to Cart (500g) - ₹300
+                    </button>
+
+                    <!-- Buy Now Button -->
+                    <button class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 mb-3 rounded buy-now-btn">
+                        ⚡ Buy Now (500g) - ₹300
+                    </button>
+
+                    <!-- Weight Options (Add to Cart) -->
+                    <div class="mb-3">
+                        <p class="text-xs text-gray-600 mb-2 font-medium">Add to Cart:</p>
+                        <div class="grid grid-cols-3 gap-1">
+                            <button class="text-xs py-2 px-2 border border-gray-300 rounded hover:bg-orange-50 cart-btn">
+                                250g<br>₹150
+                            </button>
+                            <button class="text-xs py-2 px-2 border border-gray-300 rounded hover:bg-orange-50 cart-btn">
+                                500g<br>₹300
+                            </button>
+                            <button class="text-xs py-2 px-2 border border-gray-300 rounded hover:bg-orange-50 cart-btn">
+                                1kg<br>₹600
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Buy Options -->
+                    <div>
+                        <p class="text-xs text-gray-600 mb-2 font-medium">Quick Buy:</p>
+                        <div class="grid grid-cols-3 gap-1">
+                            <button class="text-xs py-2 px-2 bg-red-500 hover:bg-red-600 text-white rounded buy-now-btn">
+                                ⚡ 250g
+                            </button>
+                            <button class="text-xs py-2 px-2 bg-red-500 hover:bg-red-600 text-white rounded buy-now-btn">
+                                ⚡ 500g
+                            </button>
+                            <button class="text-xs py-2 px-2 bg-red-500 hover:bg-red-600 text-white rounded buy-now-btn">
+                                ⚡ 1kg
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <div class="relative aspect-square bg-gradient-to-br from-orange-100 to-red-100 rounded-t-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=300" 
+                         alt="Boneless Mutton" 
+                         class="w-full h-full object-cover">
+                    <div class="absolute top-2 left-2">
+                        <span class="bg-red-500 text-white font-bold text-xs px-2 py-1 rounded">-30% OFF</span>
+                    </div>
+                    <span class="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded">Fresh</span>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg text-gray-800 mb-2">Boneless Mutton Premium</h3>
+                    <div class="flex items-center mb-3">
+                        <div class="flex text-yellow-400 text-sm mr-2">★★★★★</div>
+                        <span class="text-xs text-gray-500">(4.5) • 62+ ordered this week</span>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <span class="text-2xl font-bold text-gray-900">₹750</span>
+                        <span class="text-lg text-gray-500 line-through ml-2">₹1070</span>
+                        <span class="text-sm text-green-600 font-semibold ml-2">per kg</span>
+                    </div>
+
+                    <!-- Add to Cart Button -->
+                    <button class="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 mb-2 rounded cart-btn">
+                        🛒 Add to Cart (500g) - ₹375
+                    </button>
+
+                    <!-- Buy Now Button -->
+                    <button class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 mb-3 rounded buy-now-btn">
+                        ⚡ Buy Now (500g) - ₹375
+                    </button>
+
+                    <!-- Weight Options (Add to Cart) -->
+                    <div class="mb-3">
+                        <p class="text-xs text-gray-600 mb-2 font-medium">Add to Cart:</p>
+                        <div class="grid grid-cols-3 gap-1">
+                            <button class="text-xs py-2 px-2 border border-gray-300 rounded hover:bg-orange-50 cart-btn">
+                                250g<br>₹188
+                            </button>
+                            <button class="text-xs py-2 px-2 border border-gray-300 rounded hover:bg-orange-50 cart-btn">
+                                500g<br>₹375
+                            </button>
+                            <button class="text-xs py-2 px-2 border border-gray-300 rounded hover:bg-orange-50 cart-btn">
+                                1kg<br>₹750
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Buy Options -->
+                    <div>
+                        <p class="text-xs text-gray-600 mb-2 font-medium">Quick Buy:</p>
+                        <div class="grid grid-cols-3 gap-1">
+                            <button class="text-xs py-2 px-2 bg-red-500 hover:bg-red-600 text-white rounded buy-now-btn">
+                                ⚡ 250g
+                            </button>
+                            <button class="text-xs py-2 px-2 bg-red-500 hover:bg-red-600 text-white rounded buy-now-btn">
+                                ⚡ 500g
+                            </button>
+                            <button class="text-xs py-2 px-2 bg-red-500 hover:bg-red-600 text-white rounded buy-now-btn">
+                                ⚡ 1kg
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature Benefits -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+            <div class="bg-white rounded-lg p-6 text-center">
+                <div class="text-4xl mb-4">🛒</div>
+                <h3 class="font-semibold mb-2">Add to Cart</h3>
+                <p class="text-sm text-gray-600">Browse multiple items, compare, and checkout when ready</p>
+            </div>
+            <div class="bg-white rounded-lg p-6 text-center">
+                <div class="text-4xl mb-4">⚡</div>
+                <h3 class="font-semibold mb-2">Buy Now</h3>
+                <p class="text-sm text-gray-600">Skip the cart and go directly to checkout for instant purchase</p>
+            </div>
+            <div class="bg-white rounded-lg p-6 text-center">
+                <div class="text-4xl mb-4">🚀</div>
+                <h3 class="font-semibold mb-2">Quick Buy</h3>
+                <p class="text-sm text-gray-600">One-click purchase for any weight option you need</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8 py-4 text-gray-500 text-sm">
+            <p>✅ Your MeatExpress customer panel now has complete "Buy Now" functionality!</p>
+            <p>🎯 Customers can choose between "Add to Cart" for shopping or "Buy Now" for instant checkout</p>
+            <p>⚡ Multiple purchase options: Main buttons + Quick Buy grid for all weights</p>
+        </div>
+    </div>
+</body>
+</html>

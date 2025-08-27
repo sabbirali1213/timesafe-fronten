@@ -1,0 +1,29 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://timesafe.in/sitemap.xml
+
+# Important pages for crawling
+Allow: /customer
+Allow: /vendor
+Allow: /admin
+Allow: /delivery
+Allow: /products
+Allow: /about
+Allow: /contact
+
+# Block admin sensitive areas
+Disallow: /admin/private
+Disallow: /api/admin
+
+# Allow all images and assets
+Allow: /static/
+Allow: /assets/
+Allow: /*.jpg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.webp$
+
+# Crawl delay (be nice to server)
+Crawl-delay: 1

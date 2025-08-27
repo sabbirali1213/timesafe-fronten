@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeSafe Delivery - Hero Slideshow Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+        
+        .title {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #374151;
+        }
+        
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 20rem;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            display: flex;
+            align-items: center;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .slide-content {
+            flex: 1;
+            color: white;
+            padding: 2rem;
+        }
+        
+        .slide-content h1 {
+            font-size: 1.875rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .slide-content h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            opacity: 0.9;
+        }
+        
+        .slide-content p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .slide-content button {
+            background-color: white;
+            color: #374151;
+            font-weight: 600;
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
+        
+        .slide-content button:hover {
+            background-color: #f3f4f6;
+        }
+        
+        .slide-image {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .slide-image img {
+            width: 16rem;
+            height: 12rem;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Slide backgrounds */
+        .slide-1 {
+            background: linear-gradient(to right, #ef4444, #f97316);
+        }
+        
+        .slide-2 {
+            background: linear-gradient(to right, #10b981, #3b82f6);
+        }
+        
+        .slide-3 {
+            background: linear-gradient(to right, #8b5cf6, #ec4899);
+        }
+        
+        .slide-4 {
+            background: linear-gradient(to right, #3b82f6, #6366f1);
+        }
+        
+        /* Navigation */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 2.5rem;
+            height: 2.5rem;
+            cursor: pointer;
+            font-size: 1.125rem;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .nav-btn.prev {
+            left: 1rem;
+        }
+        
+        .nav-btn.next {
+            right: 1rem;
+        }
+        
+        /* Indicators */
+        .indicators {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .indicator {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            border: none;
+        }
+        
+        .indicator.active {
+            background: white;
+        }
+        
+        .indicator:hover {
+            background: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Counter */
+        .counter {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+        }
+        
+        /* Info section */
+        .info-section {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-section h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+        
+        .info-section ul {
+            list-style: none;
+        }
+        
+        .info-section li {
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">⏰ TimeSafe Delivery - Enhanced Hero Slideshow</h1>
+        
+        <!-- Hero Slideshow -->
+        <div class="slideshow-container">
+            <!-- Slide 1 -->
+            <div class="slide slide-1 active">
+                <div class="slide-content">
+                    <h1>⏰ TimeSafe Delivery</h1>
+                    <h2>Fresh Mutton in 30 Minutes</h2>
+                    <p>Premium quality meat delivered to your doorstep with lightning speed</p>
+                    <button>Order Now</button>
+                </div>
+                <div class="slide-image">
+                    <img src="https://images.unsplash.com/photo-1617347454431-f49d7ff5c3b1" alt="Fast Delivery" />
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="slide slide-2">
+                <div class="slide-content">
+                    <h1>🏪 Premium Vendors</h1>
+                    <h2>Trusted Local Butchers</h2>
+                    <p>Sourced from certified vendors with 100% quality guarantee</p>
+                    <button>Find Vendors</button>
+                </div>
+                <div class="slide-image">
+                    <img src="https://images.unsplash.com/photo-1642690743987-e3e613fd6405" alt="Premium Vendors" />
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="slide slide-3">
+                <div class="slide-content">
+                    <h1>🚚 Fast Delivery</h1>
+                    <h2>Track Your Order Live</h2>
+                    <p>Real-time tracking with professional delivery partners</p>
+                    <button>Track Order</button>
+                </div>
+                <div class="slide-image">
+                    <img src="https://images.pexels.com/photos/1542252/pexels-photo-1542252.jpeg" alt="Order Tracking" />
+                </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="slide slide-4">
+                <div class="slide-content">
+                    <h1>📞 24/7 Support</h1>
+                    <h2>Always Here to Help</h2>
+                    <p>Round-the-clock customer care for all your needs</p>
+                    <button>Get Help</button>
+                </div>
+                <div class="slide-image">
+                    <img src="https://images.unsplash.com/photo-1709715357479-591f9971fb05" alt="Customer Support" />
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <button class="nav-btn prev" onclick="prevSlide()">‹</button>
+            <button class="nav-btn next" onclick="nextSlide()">›</button>
+
+            <!-- Indicators -->
+            <div class="indicators">
+                <button class="indicator active" onclick="goToSlide(0)"></button>
+                <button class="indicator" onclick="goToSlide(1)"></button>
+                <button class="indicator" onclick="goToSlide(2)"></button>
+                <button class="indicator" onclick="goToSlide(3)"></button>
+            </div>
+
+            <!-- Counter -->
+            <div class="counter">1 / 4</div>
+        </div>
+
+        <!-- Info Section -->
+        <div class="info-section">
+            <h2>Enhanced Hero Slideshow Features</h2>
+            <ul>
+                <li>✅ <strong>Professional Images:</strong> High-quality images from Unsplash and Pexels</li>
+                <li>✅ <strong>Auto-advance:</strong> Slides change every 4 seconds automatically</li>
+                <li>✅ <strong>Navigation Controls:</strong> Click arrows or dots to navigate manually</li>
+                <li>✅ <strong>Smooth Transitions:</strong> Elegant fade transitions between slides</li>
+                <li>✅ <strong>TimeSafe Delivery Branding:</strong> Updated with new app name and messaging</li>
+                <li>✅ <strong>Responsive Design:</strong> Works on all screen sizes</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+        const counter = document.querySelector('.counter');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            // Update indicators
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+
+            // Show current slide
+            slides[index].classList.add('active');
+            
+            // Update current indicator
+            indicators[index].classList.add('active');
+
+            // Update counter
+            counter.textContent = `${index + 1} / ${totalSlides}`;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            showSlide(currentSlide);
+        }
+
+        // Auto-advance slides
+        setInterval(nextSlide, 4000);
+    </script>
+</body>
+</html>

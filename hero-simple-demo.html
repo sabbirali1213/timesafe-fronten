@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TimeSafe Delivery - Hero Slideshow</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        h1 { text-align: center; color: #333; margin-bottom: 30px; }
+        
+        .slideshow { position: relative; width: 100%; height: 400px; margin-bottom: 20px; border-radius: 10px; overflow: hidden; }
+        .slide { position: absolute; width: 100%; height: 100%; display: flex; opacity: 0; transition: opacity 0.5s; }
+        .slide.active { opacity: 1; }
+        .slide-content { flex: 1; padding: 40px; color: white; display: flex; flex-direction: column; justify-content: center; }
+        .slide-image { flex: 1; display: flex; align-items: center; justify-content: center; }
+        .slide-image img { width: 300px; height: 200px; object-fit: cover; border-radius: 10px; }
+        
+        .slide1 { background: linear-gradient(45deg, #ff6b6b, #ffa500); }
+        .slide2 { background: linear-gradient(45deg, #4ecdc4, #44a08d); }
+        .slide3 { background: linear-gradient(45deg, #a855f7, #ec4899); }
+        .slide4 { background: linear-gradient(45deg, #3b82f6, #1e40af); }
+        
+        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.3); 
+                   border: none; color: white; font-size: 24px; padding: 10px 15px; cursor: pointer; border-radius: 50%; }
+        .prev { left: 20px; }
+        .next { right: 20px; }
+        
+        .dots { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); }
+        .dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.5); 
+               margin: 0 5px; cursor: pointer; display: inline-block; }
+        .dot.active { background: white; }
+        
+        .info { background: white; padding: 20px; border-radius: 10px; }
+        .info h2 { color: #333; margin-bottom: 15px; }
+        .info ul { list-style: none; padding: 0; }
+        .info li { margin: 8px 0; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⏰ TimeSafe Delivery - Enhanced Hero Slideshow</h1>
+        
+        <div class="slideshow">
+            <div class="slide slide1 active">
+                <div class="slide-content">
+                    <h2>⏰ TimeSafe Delivery</h2>
+                    <h3>Fresh Mutton in 30 Minutes</h3>
+                    <p>Premium quality meat delivered to your doorstep with lightning speed</p>
+                </div>
+                <div class="slide-image">
+                    <img src="https://images.unsplash.com/photo-1617347454431-f49d7ff5c3b1" alt="Fast Delivery">
+                </div>
+            </div>
+            
+            <div class="slide slide2">
+                <div class="slide-content">
+                    <h2>🏪 Premium Vendors</h2>
+                    <h3>Trusted Local Butchers</h3>
+                    <p>Sourced from certified vendors with 100% quality guarantee</p>
+                </div>
+                <div class="slide-image">
+                    <img src="https://images.unsplash.com/photo-1642690743987-e3e613fd6405" alt="Premium Vendors">
+                </div>
+            </div>
+            
+            <div class="slide slide3">
+                <div class="slide-content">
+                    <h2>🚚 Fast Delivery</h2>
+                    <h3>Track Your Order Live</h3>
+                    <p>Real-time tracking with professional delivery partners</p>
+                </div>
+                <div class="slide-image">
+                    <img src="https://images.pexels.com/photos/1542252/pexels-photo-1542252.jpeg" alt="Order Tracking">
+                </div>
+            </div>
+            
+            <div class="slide slide4">
+                <div class="slide-content">
+                    <h2>📞 24/7 Support</h2>
+                    <h3>Always Here to Help</h3>
+                    <p>Round-the-clock customer care for all your needs</p>
+                </div>
+                <div class="slide-image">
+                    <img src="https://images.unsplash.com/photo-1709715357479-591f9971fb05" alt="Customer Support">
+                </div>
+            </div>
+            
+            <button class="nav-btn prev" onclick="changeSlide(-1)">‹</button>
+            <button class="nav-btn next" onclick="changeSlide(1)">›</button>
+            
+            <div class="dots">
+                <span class="dot active" onclick="currentSlide(0)"></span>
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+            </div>
+        </div>
+        
+        <div class="info">
+            <h2>Enhanced Hero Slideshow Features</h2>
+            <ul>
+                <li>✅ <strong>Professional Images:</strong> High-quality images from Unsplash and Pexels</li>
+                <li>✅ <strong>Auto-advance:</strong> Slides change every 4 seconds automatically</li>
+                <li>✅ <strong>Navigation Controls:</strong> Click arrows or dots to navigate manually</li>
+                <li>✅ <strong>Smooth Transitions:</strong> Elegant fade transitions between slides</li>
+                <li>✅ <strong>TimeSafe Delivery Branding:</strong> Updated with new app name and messaging</li>
+                <li>✅ <strong>Responsive Design:</strong> Works on all screen sizes</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        
+        function showSlide(n) {
+            slides[currentSlideIndex].classList.remove('active');
+            dots[currentSlideIndex].classList.remove('active');
+            
+            currentSlideIndex = (n + slides.length) % slides.length;
+            
+            slides[currentSlideIndex].classList.add('active');
+            dots[currentSlideIndex].classList.add('active');
+        }
+        
+        function changeSlide(direction) {
+            showSlide(currentSlideIndex + direction);
+        }
+        
+        function currentSlide(n) {
+            showSlide(n);
+        }
+        
+        // Auto advance
+        setInterval(() => changeSlide(1), 4000);
+    </script>
+</body>
+</html>

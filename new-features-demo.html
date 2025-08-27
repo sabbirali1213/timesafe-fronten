@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeSafe Delivery - Order Timing & Vendor Features Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { color: #2563eb; text-align: center; margin-bottom: 30px; }
+        
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .feature-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .feature-card h2 { color: #16a34a; margin-bottom: 15px; }
+        .feature-list { list-style: none; padding: 0; }
+        .feature-list li { margin: 10px 0; padding: 10px; background: #f8f9fa; border-left: 4px solid #22c55e; }
+        
+        .status-demo { background: white; padding: 20px; border-radius: 10px; margin: 20px 0; }
+        .status-item { display: flex; justify-content: space-between; align-items: center; margin: 10px 0; 
+                      padding: 10px; border-radius: 5px; }
+        .status-fresh { background: #dcfce7; border-left: 4px solid #22c55e; }
+        .status-urgent { background: #fef3c7; border-left: 4px solid #f59e0b; }
+        .status-critical { background: #fecaca; border-left: 4px solid #ef4444; }
+        
+        .demo-button { display: inline-block; background: #2563eb; color: white; padding: 12px 24px; 
+                      border-radius: 5px; text-decoration: none; margin: 10px 5px; font-weight: bold; }
+        .demo-button:hover { background: #1d4ed8; }
+        
+        .highlight { background: #fbbf24; padding: 2px 8px; border-radius: 4px; font-weight: bold; }
+        .online-status { color: #22c55e; font-weight: bold; }
+        .offline-status { color: #ef4444; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 TimeSafe Delivery - Enhanced Features Demo</h1>
+
+        <div class="feature-grid">
+            <!-- Vendor Online/Offline Toggle -->
+            <div class="feature-card">
+                <h2>🟢 Vendor Online/Offline Toggle</h2>
+                <ul class="feature-list">
+                    <li><strong>Smart Status Control:</strong> Vendors can toggle between online/offline instantly</li>
+                    <li><strong>Visual Indicators:</strong> <span class="online-status">🟢 ONLINE</span> / <span class="offline-status">🔴 OFFLINE</span> badges</li>
+                    <li><strong>Customer Filtering:</strong> Only online vendor products shown to customers</li>
+                    <li><strong>Real-time Updates:</strong> Status changes reflect immediately</li>
+                </ul>
+            </div>
+
+            <!-- Order Priority Sorting -->
+            <div class="feature-card">
+                <h2>📋 Smart Order Sorting</h2>
+                <ul class="feature-list">
+                    <li><strong>New Orders First:</strong> <span class="highlight">NEW</span> orders always appear at the top</li>
+                    <li><strong>Status Priority:</strong> Placed → Accepted → Prepared → Delivered</li>
+                    <li><strong>Time-based Sorting:</strong> Within same status, newest orders first</li>
+                    <li><strong>Visual Indicators:</strong> 🔥 NEW and ⚡ RECENT badges</li>
+                </ul>
+            </div>
+
+            <!-- Real-time Order Timing -->
+            <div class="feature-card">
+                <h2>⏰ Real-time Order Timing</h2>
+                <ul class="feature-list">
+                    <li><strong>Live Time Updates:</strong> "2 minutes ago", "1 hour ago"</li>
+                    <li><strong>Urgency Color Coding:</strong> Green → Yellow → Red based on age</li>
+                    <li><strong>All Panels:</strong> Customer, Vendor, Delivery, Admin</li>
+                    <li><strong>Context Aware:</strong> Different priorities for different statuses</li>
+                </ul>
+            </div>
+
+            <!-- Continuous Phone Ring -->
+            <div class="feature-card">
+                <h2>📞 Phone-Style Notifications</h2>
+                <ul class="feature-list">
+                    <li><strong>Continuous Ringing:</strong> Like receiving a phone call</li>
+                    <li><strong>Visual Alerts:</strong> "📞 INCOMING ORDER CALL" with pulsing</li>
+                    <li><strong>Auto Stop:</strong> Stops when order is accepted/rejected</li>
+                    <li><strong>Emergency Controls:</strong> Stop button to silence immediately</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Live Demo of Order Timing Colors -->
+        <div class="status-demo">
+            <h2>⏰ Live Order Timing Demo</h2>
+            <p><strong>Color-coded urgency system across all dashboards:</strong></p>
+            
+            <div class="status-item status-fresh">
+                <span><strong>Order #ABC123</strong> - New order placed</span>
+                <span style="color: #22c55e;">🕒 2 minutes ago • Very Fresh!</span>
+            </div>
+            
+            <div class="status-item status-urgent">
+                <span><strong>Order #DEF456</strong> - Awaiting acceptance</span>
+                <span style="color: #f59e0b;">🕒 12 minutes ago • Getting Urgent</span>
+            </div>
+            
+            <div class="status-item status-critical">
+                <span><strong>Order #GHI789</strong> - Still not accepted</span>
+                <span style="color: #ef4444;">🕒 25 minutes ago • CRITICAL!</span>
+            </div>
+        </div>
+
+        <!-- Demo Actions -->
+        <div style="text-align: center; margin: 30px 0;">
+            <h2>🎯 Try the Enhanced Features:</h2>
+            <a href="https://timesafe-payments.preview.emergentagent.com" class="demo-button">
+                🏪 Test Vendor Dashboard
+            </a>
+            <a href="https://timesafe-payments.preview.emergentagent.com" class="demo-button">
+                👥 Test Customer View
+            </a>
+            <a href="https://timesafe-payments.preview.emergentagent.com" class="demo-button">
+                🚚 Test Delivery Partner
+            </a>
+        </div>
+
+        <!-- Feature Benefits -->
+        <div class="feature-card" style="margin: 20px 0;">
+            <h2>✨ Key Benefits</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                <div>
+                    <h3>🔔 For Vendors:</h3>
+                    <ul>
+                        <li>Control visibility to customers</li>
+                        <li>Never miss urgent orders</li>
+                        <li>Clear order prioritization</li>
+                        <li>Phone-call style alerts</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>🛒 For Customers:</h3>
+                    <ul>
+                        <li>See only available vendors</li>
+                        <li>Track order timing live</li>
+                        <li>Know delivery status instantly</li>
+                        <li>Better delivery experience</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>🚚 For Delivery Partners:</h3>
+                    <ul>
+                        <li>Prioritize urgent pickups</li>
+                        <li>See order age clearly</li>
+                        <li>Optimize delivery routes</li>
+                        <li>Better time management</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>👨‍💼 For Admins:</h3>
+                    <ul>
+                        <li>Monitor order delays</li>
+                        <li>Track vendor performance</li>
+                        <li>Identify bottlenecks</li>
+                        <li>Optimize operations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0; padding: 20px; background: white; border-radius: 10px;">
+            <h2>🎉 All Features Ready for Production!</h2>
+            <p>TimeSafe Delivery now includes advanced vendor controls, smart order management, and real-time timing across all panels.</p>
+            <p><strong>Login Credentials for Testing:</strong></p>
+            <p>Vendor: vendor@test.com / password123 | Customer: customer@test.com / password123</p>
+        </div>
+    </div>
+</body>
+</html>

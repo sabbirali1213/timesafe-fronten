@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeSafe Delivery - Exact Real-Time Timing Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { color: #2563eb; text-align: center; margin-bottom: 30px; }
+        
+        .timing-demo { background: white; padding: 20px; border-radius: 10px; margin: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .order-item { display: flex; justify-content: between; align-items: center; margin: 15px 0; 
+                     padding: 15px; border-radius: 5px; border-left: 4px solid #22c55e; }
+        
+        .fresh { background: #dcfce7; border-left-color: #22c55e; }
+        .urgent { background: #fef3c7; border-left-color: #f59e0b; }
+        .critical { background: #fecaca; border-left-color: #ef4444; }
+        .processing { background: #e0f2fe; border-left-color: #2563eb; }
+        
+        .timer { font-family: 'Courier New', monospace; font-weight: bold; font-size: 14px; color: #1f2937; }
+        .status-indicator { margin-right: 8px; }
+        
+        .demo-section { background: white; padding: 20px; border-radius: 10px; margin: 20px 0; }
+        .feature-highlight { background: #fbbf24; padding: 2px 8px; border-radius: 4px; font-weight: bold; }
+        
+        .live-clock { text-align: center; font-size: 1.5em; color: #2563eb; margin: 20px 0; font-weight: bold; }
+        .update-indicator { color: #22c55e; font-size: 12px; }
+    </style>
+    <script>
+        // Simulate real-time timing updates
+        function updateTimers() {
+            const now = new Date();
+            document.getElementById('live-clock').textContent = now.toLocaleTimeString();
+            
+            // Update sample order timers
+            const orders = [
+                { id: 'order1', created: new Date(now - 45000) }, // 45 seconds ago
+                { id: 'order2', created: new Date(now - 300000) }, // 5 minutes ago
+                { id: 'order3', created: new Date(now - 900000) }, // 15 minutes ago
+                { id: 'order4', created: new Date(now - 3600000) }, // 1 hour ago
+            ];
+            
+            orders.forEach(order => {
+                const diffSeconds = Math.floor((now - order.created) / 1000);
+                let timing = '';
+                
+                if (diffSeconds < 60) {
+                    timing = `${diffSeconds}s ago`;
+                } else if (diffSeconds < 3600) {
+                    const minutes = Math.floor(diffSeconds / 60);
+                    const seconds = diffSeconds % 60;
+                    timing = `${minutes}m ${seconds}s ago`;
+                } else {
+                    const hours = Math.floor(diffSeconds / 3600);
+                    const minutes = Math.floor((diffSeconds % 3600) / 60);
+                    const seconds = diffSeconds % 60;
+                    timing = `${hours}h ${minutes}m ${seconds}s ago`;
+                }
+                
+                document.getElementById(order.id).textContent = timing;
+            });
+        }
+        
+        // Update every second for real-time effect
+        setInterval(updateTimers, 1000);
+        window.onload = updateTimers;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>⏰ TimeSafe Delivery - Exact Real-Time Timing</h1>
+        
+        <div class="live-clock" id="live-clock"></div>
+        <p class="update-indicator" style="text-align: center;">🔄 Updates every second • Live timing in action</p>
+
+        <div class="demo-section">
+            <h2>🎯 Exact Real-Time Features Implemented</h2>
+            <ul>
+                <li>✅ <span class="feature-highlight">Precision Timing:</span> Shows exact seconds, minutes, hours</li>
+                <li>✅ <span class="feature-highlight">Live Updates:</span> Refreshes every 1 second automatically</li>
+                <li>✅ <span class="feature-highlight">Smart Indicators:</span> 🆕 🕒 ⏳ ⚠️ 🚨 based on urgency</li>
+                <li>✅ <span class="feature-highlight">Context Aware:</span> Different timing for different order statuses</li>
+                <li>✅ <span class="feature-highlight">All Panels:</span> Customer, Vendor, Delivery, Admin dashboards</li>
+            </ul>
+        </div>
+
+        <div class="timing-demo">
+            <h2>📊 Live Order Timing Simulation</h2>
+            <p><strong>Watch the exact timing update in real-time:</strong></p>
+            
+            <div class="order-item fresh">
+                <div style="flex: 1;">
+                    <strong>🆕 Order #ABC123</strong> - New order just placed
+                    <br><small>Status: placed • Priority: High</small>
+                </div>
+                <div class="timer">
+                    <span class="status-indicator">🆕</span>
+                    <span id="order1">Loading...</span>
+                </div>
+            </div>
+            
+            <div class="order-item urgent">
+                <div style="flex: 1;">
+                    <strong>⏳ Order #DEF456</strong> - Awaiting vendor response
+                    <br><small>Status: placed • Priority: Getting urgent</small>
+                </div>
+                <div class="timer">
+                    <span class="status-indicator">⏳</span>
+                    <span id="order2">Loading...</span>
+                </div>
+            </div>
+            
+            <div class="order-item critical">
+                <div style="flex: 1;">
+                    <strong>⚠️ Order #GHI789</strong> - Needs immediate attention
+                    <br><small>Status: placed • Priority: URGENT!</small>
+                </div>
+                <div class="timer">
+                    <span class="status-indicator">⚠️</span>
+                    <span id="order3">Loading...</span>
+                </div>
+            </div>
+            
+            <div class="order-item processing">
+                <div style="flex: 1;">
+                    <strong>🕒 Order #JKL012</strong> - Being processed
+                    <br><small>Status: accepted • Priority: On track</small>
+                </div>
+                <div class="timer">
+                    <span class="status-indicator">🕒</span>
+                    <span id="order4">Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>🚀 Timing Precision Levels</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                <div style="padding: 15px; background: #f3f4f6; border-radius: 8px;">
+                    <h3>🆕 Fresh Orders</h3>
+                    <p><strong>0-60 seconds:</strong><br>
+                    "23s ago", "45s ago"</p>
+                </div>
+                <div style="padding: 15px; background: #f3f4f6; border-radius: 8px;">
+                    <h3>⏳ Recent Orders</h3>
+                    <p><strong>1-60 minutes:</strong><br>
+                    "5m 23s ago", "12m 45s ago"</p>
+                </div>
+                <div style="padding: 15px; background: #f3f4f6; border-radius: 8px;">
+                    <h3>🕒 Older Orders</h3>
+                    <p><strong>1+ hours:</strong><br>
+                    "2h 15m 30s ago", "5h 45m 12s ago"</p>
+                </div>
+                <div style="padding: 15px; background: #f3f4f6; border-radius: 8px;">
+                    <h3>📅 Past Orders</h3>
+                    <p><strong>1+ days:</strong><br>
+                    "2d 5h ago", "1d 12h ago"</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0; padding: 20px; background: #2563eb; color: white; border-radius: 10px;">
+            <h2>⚡ Experience Exact Real-Time Timing Now!</h2>
+            <p>Login to any dashboard to see live timing updates every second</p>
+            <p><strong>Test Credentials:</strong></p>
+            <p>Vendor: vendor@test.com / password123</p>
+            <p>Customer: customer@test.com / password123</p>
+            <div style="margin: 20px 0;">
+                <a href="https://timesafe-payments.preview.emergentagent.com" 
+                   style="background: white; color: #2563eb; padding: 12px 24px; border-radius: 5px; 
+                          text-decoration: none; font-weight: bold; margin: 0 10px;">
+                    🏪 Test Vendor Panel
+                </a>
+                <a href="https://timesafe-payments.preview.emergentagent.com" 
+                   style="background: white; color: #2563eb; padding: 12px 24px; border-radius: 5px; 
+                          text-decoration: none; font-weight: bold; margin: 0 10px;">
+                    🛒 Test Customer Panel
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

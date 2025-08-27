@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeatExpress - E-commerce Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .deal-badge { animation: pulse 2s infinite; }
+        .product-hover:hover { transform: translateY(-2px); }
+        .line-clamp-2 { 
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-orange-600">🥩 MeatExpress</h1>
+            <p class="text-gray-600">E-commerce Product Preview - Like Amazon/Flipkart</p>
+        </div>
+
+        <!-- Search and Filters -->
+        <div class="bg-white rounded-lg shadow-sm border p-6 mb-6">
+            <div class="flex flex-col lg:flex-row gap-4 mb-4">
+                <div class="flex-1 relative">
+                    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">🔍</div>
+                    <input
+                        type="text"
+                        placeholder="Search for mutton products..."
+                        class="w-full pl-10 h-12 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    />
+                </div>
+                <select class="w-full lg:w-48 h-12 border border-gray-300 rounded-lg">
+                    <option>All Prices</option>
+                    <option>Under ₹500</option>
+                    <option>₹500 - ₹800</option>
+                    <option>₹800 - ₹1200</option>
+                    <option>Above ₹1200</option>
+                </select>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <button class="bg-orange-600 text-white px-4 py-2 rounded-lg text-sm">All Products (12)</button>
+                <button class="border border-gray-300 px-4 py-2 rounded-lg text-sm hover:bg-gray-50">Premium Cuts</button>
+                <button class="border border-gray-300 px-4 py-2 rounded-lg text-sm hover:bg-gray-50">Fresh Arrivals</button>
+            </div>
+        </div>
+
+        <!-- Hero Section -->
+        <div class="bg-gradient-to-r from-red-600 to-orange-600 text-white p-8 rounded-lg shadow-lg mb-8">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-4 md:mb-0">
+                    <h1 class="text-4xl font-bold mb-2">🥩 Premium Fresh Mutton</h1>
+                    <p class="text-xl opacity-90">Farm-fresh, premium quality meat delivered to your doorstep</p>
+                    <div class="flex items-center mt-3">
+                        <span class="bg-yellow-400 text-black px-3 py-1 rounded-full text-sm mr-2">⚡ Fast Delivery</span>
+                        <span class="bg-green-400 text-black px-3 py-1 rounded-full text-sm">🌟 Premium Quality</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                        <p class="text-2xl font-bold">Starting from</p>
+                        <p class="text-3xl font-bold text-yellow-300">₹450/kg</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Header -->
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800">Fresh Mutton Products</h2>
+                <p class="text-gray-600">6 products found</p>
+            </div>
+        </div>
+
+        <!-- Products Grid - 6 Smaller Products with Better Spacing -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            <!-- Product 1 - Smaller Card -->
+            <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 product-hover">
+                <div class="relative aspect-square bg-gradient-to-br from-orange-100 to-red-100 overflow-hidden rounded-t-lg">
+                    <img src="https://images.unsplash.com/photo-1588347818036-7b6e01e4e48d?w=300" 
+                         alt="Premium Mutton" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                    <div class="absolute top-1 left-1">
+                        <span class="bg-red-500 text-white font-bold text-xs px-1 py-0.5 rounded deal-badge">-25%</span>
+                    </div>
+                    <span class="absolute top-1 right-1 bg-green-500 text-white text-xs px-1 py-0.5 rounded">Fresh</span>
+                </div>
+                <div class="p-2">
+                    <h3 class="font-semibold text-sm text-gray-800 mb-1 line-clamp-2 hover:text-orange-600 transition-colors">
+                        Premium Fresh Mutton Cuts
+                    </h3>
+                    <div class="flex items-center mb-2">
+                        <div class="flex text-yellow-400 text-xs mr-1">★★★★☆</div>
+                        <span class="text-xs text-gray-500">(4.2)</span>
+                    </div>
+                    <div class="flex items-center mb-2">
+                        <span class="text-lg font-bold text-gray-900">₹600</span>
+                        <span class="text-sm text-gray-500 line-through ml-1">₹800</span>
+                    </div>
+                    <div class="text-xs text-green-600 font-semibold mb-2">per kg</div>
+                    <button class="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-1 px-2 text-xs mb-2 rounded transition-colors">
+                        🛒 Add 500g
+                    </button>
+                    <div class="grid grid-cols-3 gap-0.5">
+                        <button class="text-xs py-0.5 px-1 border border-gray-300 rounded hover:bg-orange-50">250g<br>₹150</button>
+                        <button class="text-xs py-0.5 px-1 border border-gray-300 rounded hover:bg-orange-50">500g<br>₹300</button>
+                        <button class="text-xs py-0.5 px-1 border border-gray-300 rounded hover:bg-orange-50">1kg<br>₹600</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 product-hover">
+                <div class="relative aspect-square bg-gradient-to-br from-orange-100 to-red-100 overflow-hidden rounded-t-lg">
+                    <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=400" 
+                         alt="Boneless Mutton" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                    <div class="absolute top-3 left-3">
+                        <span class="bg-red-500 text-white font-bold text-xs px-2 py-1 rounded deal-badge">-30% OFF</span>
+                    </div>
+                    <span class="absolute top-3 right-3 bg-green-500 text-white text-xs px-2 py-1 rounded">Fresh</span>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg text-gray-800 mb-2 line-clamp-2 hover:text-orange-600 transition-colors">
+                        Boneless Mutton Premium
+                    </h3>
+                    <div class="flex items-center mb-3">
+                        <div class="flex text-yellow-400 text-sm mr-2">★★★★★</div>
+                        <span class="text-xs text-gray-500">(4.5)</span>
+                        <span class="text-xs text-gray-500 ml-2">• 62+ ordered this week</span>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <span class="text-2xl font-bold text-gray-900">₹750</span>
+                        <span class="text-lg text-gray-500 line-through ml-2">₹1070</span>
+                        <span class="text-sm text-green-600 font-semibold ml-2">per kg</span>
+                    </div>
+                    <button class="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 mb-3 rounded-lg transition-colors">
+                        🛒 Quick Add (500g) - ₹375
+                    </button>
+                    <div class="grid grid-cols-3 gap-1">
+                        <button class="text-xs py-1 px-2 border border-gray-300 rounded hover:bg-orange-50">250g<br>₹188</button>
+                        <button class="text-xs py-1 px-2 border border-gray-300 rounded hover:bg-orange-50">500g<br>₹375</button>
+                        <button class="text-xs py-1 px-2 border border-gray-300 rounded hover:bg-orange-50">1kg<br>₹750</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 product-hover">
+                <div class="relative aspect-square bg-gradient-to-br from-orange-100 to-red-100 overflow-hidden rounded-t-lg">
+                    <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400" 
+                         alt="Mutton Curry Cut" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                    <div class="absolute top-3 left-3">
+                        <span class="bg-red-500 text-white font-bold text-xs px-2 py-1 rounded deal-badge">-20% OFF</span>
+                    </div>
+                    <span class="absolute top-3 right-3 bg-green-500 text-white text-xs px-2 py-1 rounded">Fresh</span>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg text-gray-800 mb-2 line-clamp-2 hover:text-orange-600 transition-colors">
+                        Mutton Curry Cut Special
+                    </h3>
+                    <div class="flex items-center mb-3">
+                        <div class="flex text-yellow-400 text-sm mr-2">★★★★☆</div>
+                        <span class="text-xs text-gray-500">(4.1)</span>
+                        <span class="text-xs text-gray-500 ml-2">• 38+ ordered this month</span>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <span class="text-2xl font-bold text-gray-900">₹520</span>
+                        <span class="text-lg text-gray-500 line-through ml-2">₹650</span>
+                        <span class="text-sm text-green-600 font-semibold ml-2">per kg</span>
+                    </div>
+                    <button class="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 mb-3 rounded-lg transition-colors">
+                        🛒 Quick Add (500g) - ₹260
+                    </button>
+                    <div class="grid grid-cols-3 gap-1">
+                        <button class="text-xs py-1 px-2 border border-gray-300 rounded hover:bg-orange-50">250g<br>₹130</button>
+                        <button class="text-xs py-1 px-2 border border-gray-300 rounded hover:bg-orange-50">500g<br>₹260</button>
+                        <button class="text-xs py-1 px-2 border border-gray-300 rounded hover:bg-orange-50">1kg<br>₹520</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 product-hover">
+                <div class="relative aspect-square bg-gradient-to-br from-orange-100 to-red-100 overflow-hidden rounded-t-lg">
+                    <img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400" 
+                         alt="Mutton Biryani Cut" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                    <div class="absolute top-3 left-3">
+                        <span class="bg-red-500 text-white font-bold text-xs px-2 py-1 rounded deal-badge">-15% OFF</span>
+                    </div>
+                    <span class="absolute top-3 right-3 bg-green-500 text-white text-xs px-2 py-1 rounded">Fresh</span>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg text-gray-800 mb-2 line-clamp-2 hover:text-orange-600 transition-colors">
+                        Mutton Biryani Cut Premium
+                    </h3>
+                    <div class="flex items-center mb-3">
+                        <div class="flex text-yellow-400 text-sm mr-2">★★★★★</div>
+                        <span class="text-xs text-gray-500">(4.7)</span>
+                        <span class="text-xs text-gray-500 ml-2">• 71+ ordered this week</span>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <span class="text-2xl font-bold text-gray-900">₹680</span>
+                        <span class="text-lg text-gray-500 line-through ml-2">₹800</span>
+                        <span class="text-sm text-green-600 font-semibold ml-2">per kg</span>
+                    </div>
+                    <button class="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 mb-3 rounded-lg transition-colors">
+                        🛒 Quick Add (500g) - ₹340
+                    </button>
+                    <div class="grid grid-cols-3 gap-1">
+                        <button class="text-xs py-1 px-2 border border-gray-300 rounded hover:bg-orange-50">250g<br>₹170</button>
+                        <button class="text-xs py-1 px-2 border border-gray-300 rounded hover:bg-orange-50">500g<br>₹340</button>
+                        <button class="text-xs py-1 px-2 border border-gray-300 rounded hover:bg-orange-50">1kg<br>₹680</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 product-hover">
+                <div class="relative aspect-square bg-gradient-to-br from-orange-100 to-red-100 overflow-hidden rounded-t-lg">
+                    <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=400" 
+                         alt="Mutton Keema" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                    <div class="absolute top-3 left-3">
+                        <span class="bg-red-500 text-white font-bold text-xs px-2 py-1 rounded deal-badge">-35% OFF</span>
+                    </div>
+                    <span class="absolute top-3 right-3 bg-green-500 text-white text-xs px-2 py-1 rounded">Fresh</span>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg text-gray-800 mb-2 line-clamp-2 hover:text-orange-600 transition-colors">
+                        Fresh Mutton Keema
+                    </h3>
+                    <div class="flex items-center mb-3">
+                        <div class="flex text-yellow-400 text-sm mr-2">★★★★☆</div>
+                        <span class="text-xs text-gray-500">(4.3)</span>
+                        <span class="text-xs text-gray-500 ml-2">• 29+ ordered this month</span>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <span class="text-2xl font-bold text-gray-900">₹450</span>
+                        <span class="text-lg text-gray-500 line-through ml-2">₹692</span>
+                        <span class="text-sm text-green-600 font-semibold ml-2">per kg</span>
+                    </div>
+                    <button class="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 mb-3 rounded-lg transition-colors">
+                        🛒 Quick Add (500g) - ₹225
+                    </button>
+                    <div class="grid grid-cols-3 gap-1">
+                        <button class="text-xs py-1 px-2 border border-gray-300 rounded hover:bg-orange-50">250g<br>₹113</button>
+                        <button class="text-xs py-1 px-2 border border-gray-300 rounded hover:bg-orange-50">500g<br>₹225</button>
+                        <button class="text-xs py-1 px-2 border border-gray-300 rounded hover:bg-orange-50">1kg<br>₹450</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 product-hover">
+                <div class="relative aspect-square bg-gradient-to-br from-orange-100 to-red-100 overflow-hidden rounded-t-lg">
+                    <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400" 
+                         alt="Mutton Chops" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                    <div class="absolute top-3 left-3">
+                        <span class="bg-red-500 text-white font-bold text-xs px-2 py-1 rounded deal-badge">-22% OFF</span>
+                    </div>
+                    <span class="absolute top-3 right-3 bg-green-500 text-white text-xs px-2 py-1 rounded">Fresh</span>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg text-gray-800 mb-2 line-clamp-2 hover:text-orange-600 transition-colors">
+                        Premium Mutton Chops
+                    </h3>
+                    <div class="flex items-center mb-3">
+                        <div class="flex text-yellow-400 text-sm mr-2">★★★★★</div>
+                        <span class="text-xs text-gray-500">(4.8)</span>
+                        <span class="text-xs text-gray-500 ml-2">• 54+ ordered this week</span>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <span class="text-2xl font-bold text-gray-900">₹850</span>
+                        <span class="text-lg text-gray-500 line-through ml-2">₹1090</span>
+                        <span class="text-sm text-green-600 font-semibold ml-2">per kg</span>
+                    </div>
+                    <button class="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 mb-3 rounded-lg transition-colors">
+                        🛒 Quick Add (500g) - ₹425
+                    </button>
+                    <div class="grid grid-cols-3 gap-1">
+                        <button class="text-xs py-1 px-2 border border-gray-300 rounded hover:bg-orange-50">250g<br>₹213</button>
+                        <button class="text-xs py-1 px-2 border border-gray-300 rounded hover:bg-orange-50">500g<br>₹425</button>
+                        <button class="text-xs py-1 px-2 border border-gray-300 rounded hover:bg-orange-50">1kg<br>₹850</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Load More Button -->
+        <div class="text-center mt-8">
+            <button class="border border-gray-300 px-8 py-3 rounded-lg hover:bg-gray-50 transition-colors">
+                View All 12 Products ⬇
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8 py-4 text-gray-500 text-sm">
+            <p>✅ This is exactly what your MeatExpress customer panel looks like!</p>
+            <p>🎯 Professional e-commerce design with search, filters, deals, and social proof</p>
+        </div>
+    </div>
+</body>
+</html>

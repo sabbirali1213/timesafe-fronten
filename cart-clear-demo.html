@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Clear Functionality - TimeSafe Delivery</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        h1 { 
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .feature-section {
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .status {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .success {
+            background: rgba(16, 185, 129, 0.3);
+            border: 2px solid #10b981;
+        }
+        .demo-cart {
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .cart-total {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #059669;
+            border-top: 2px solid #10b981;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        .clear-button {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .clear-button:hover {
+            background: #dc2626;
+        }
+        .location-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛒 Cart Clear Functionality</h1>
+        
+        <div class="status success">
+            <h3>✅ Cart Clear Feature Added Successfully!</h3>
+            <p>Customers can now easily remove all products and reset total to ₹0</p>
+        </div>
+        
+        <div class="feature-section">
+            <h3>🎯 New Features Added:</h3>
+            <ul>
+                <li><strong>✅ Clear All Button</strong> - Remove all products with one click</li>
+                <li><strong>✅ Confirmation Dialog</strong> - Prevents accidental clearing</li>
+                <li><strong>✅ Total Reset to ₹0</strong> - Complete cart reset functionality</li>
+                <li><strong>✅ Multiple Locations</strong> - Clear buttons in header, products section, and checkout</li>
+                <li><strong>✅ Individual Item Removal</strong> - Remove specific items with × button</li>
+                <li><strong>✅ Visual Feedback</strong> - Success alerts and empty cart states</li>
+            </ul>
+        </div>
+        
+        <div class="feature-section">
+            <h3>🗑️ Clear Button Locations:</h3>
+            
+            <div class="location-item">
+                <span style="margin-right: 10px;">📍</span>
+                <div>
+                    <strong>Header Area</strong>
+                    <p style="margin: 0; font-size: 14px; color: #666;">Quick clear button next to cart total in the top navigation</p>
+                </div>
+            </div>
+            
+            <div class="location-item">
+                <span style="margin-right: 10px;">📍</span>
+                <div>
+                    <strong>Products Section</strong>
+                    <p style="margin: 0; font-size: 14px; color: #666;">Clear button next to cart summary in the shopping area</p>
+                </div>
+            </div>
+            
+            <div class="location-item">
+                <span style="margin-right: 10px;">📍</span>
+                <div>
+                    <strong>Checkout Dialog</strong>
+                    <p style="margin: 0; font-size: 14px; color: #666;">Clear all button in the order summary section</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="feature-section">
+            <h3>🛒 Demo Cart Example:</h3>
+            
+            <div class="demo-cart">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h4 style="margin: 0;">Order Summary</h4>
+                    <button class="clear-button" onclick="clearDemoCart()">🗑️ Clear All</button>
+                </div>
+                
+                <div id="demo-cart-items">
+                    <div class="cart-item">
+                        <span>Fresh Mutton Leg (1kg)</span>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span>₹650</span>
+                            <button onclick="removeItem(this)" style="background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer;">×</button>
+                        </div>
+                    </div>
+                    
+                    <div class="cart-item">
+                        <span>Mutton Shoulder (500g)</span>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span>₹325</span>
+                            <button onclick="removeItem(this)" style="background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer;">×</button>
+                        </div>
+                    </div>
+                    
+                    <div class="cart-item">
+                        <span>Mutton Chops (250g)</span>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span>₹200</span>
+                            <button onclick="removeItem(this)" style="background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer;">×</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cart-total" id="cart-total">
+                    Total: ₹1,175
+                </div>
+            </div>
+        </div>
+        
+        <div class="feature-section">
+            <h3>🔧 How It Works:</h3>
+            <ol>
+                <li><strong>Add Products:</strong> Customers add mutton products to their cart</li>
+                <li><strong>View Cart:</strong> Cart shows items count and total in header</li>
+                <li><strong>Clear All:</strong> Click "🗑️ Clear All" button from any location</li>
+                <li><strong>Confirmation:</strong> System asks "Are you sure?" to prevent accidents</li>
+                <li><strong>Reset Complete:</strong> Cart empties, total becomes ₹0, success message shown</li>
+            </ol>
+        </div>
+        
+        <div class="feature-section">
+            <h3>✨ User Experience Features:</h3>
+            <ul>
+                <li><strong>🔒 Safety First:</strong> Confirmation dialog prevents accidental clearing</li>
+                <li><strong>📱 Responsive Design:</strong> Works perfectly on mobile and desktop</li>
+                <li><strong>🎨 Visual Feedback:</strong> Success alerts and empty cart states</li>
+                <li><strong>⚡ Multiple Options:</strong> Individual item removal or clear all</li>
+                <li><strong>💚 Consistent UI:</strong> Red color theme for all clear/remove actions</li>
+                <li><strong>🔄 Instant Updates:</strong> Real-time cart total and item count updates</li>
+            </ul>
+        </div>
+        
+        <div class="status success">
+            <h3>🎉 Ready to Use!</h3>
+            <p>The cart clearing functionality is now live in the customer panel. Users can easily manage their cart and reset to ₹0 whenever needed!</p>
+        </div>
+    </div>
+
+    <script>
+        function clearDemoCart() {
+            if (confirm('Are you sure you want to remove all items from your cart?')) {
+                document.getElementById('demo-cart-items').innerHTML = `
+                    <div style="text-center; padding: 40px; color: #6b7280;">
+                        <div style="font-size: 48px; margin-bottom: 10px;">🛒</div>
+                        <p>Your cart is empty</p>
+                        <p style="font-size: 12px;">Add items to get started!</p>
+                    </div>
+                `;
+                document.getElementById('cart-total').innerHTML = 'Total: ₹0';
+                alert('🛒 Cart cleared! All items removed.');
+            }
+        }
+        
+        function removeItem(button) {
+            const item = button.closest('.cart-item');
+            const priceText = button.parentElement.querySelector('span').textContent;
+            const price = parseInt(priceText.replace('₹', '').replace(',', ''));
+            
+            item.remove();
+            
+            // Update total
+            const totalElement = document.getElementById('cart-total');
+            const currentTotal = parseInt(totalElement.textContent.replace('Total: ₹', '').replace(',', ''));
+            const newTotal = currentTotal - price;
+            totalElement.textContent = `Total: ₹${newTotal.toLocaleString()}`;
+            
+            // Check if cart is empty
+            const cartItems = document.querySelectorAll('.cart-item');
+            if (cartItems.length === 0) {
+                clearDemoCart();
+            }
+        }
+    </script>
+</body>
+</html>

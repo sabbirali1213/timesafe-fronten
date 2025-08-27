@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeSafe Delivery - New Orders Always Top Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { color: #dc2626; text-align: center; margin-bottom: 30px; }
+        
+        .pinning-demo { background: white; padding: 20px; border-radius: 10px; margin: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .order-item { margin: 10px 0; padding: 15px; border-radius: 8px; transition: all 0.3s; }
+        
+        .new-order { 
+            background: linear-gradient(135deg, #fee2e2, #fecaca); 
+            border: 2px solid #dc2626; 
+            border-left: 6px solid #dc2626;
+            position: relative;
+        }
+        .new-order::before {
+            content: "📌";
+            position: absolute;
+            top: -8px;
+            right: 10px;
+            background: #dc2626;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        .processing-order { background: #e0f2fe; border-left: 4px solid #2563eb; }
+        .completed-order { background: #f3f4f6; border-left: 4px solid #6b7280; }
+        
+        .order-status { font-weight: bold; color: #dc2626; }
+        .pinned-indicator { 
+            display: inline-block; 
+            background: #dc2626; 
+            color: white; 
+            padding: 2px 8px; 
+            border-radius: 12px; 
+            font-size: 11px;
+            margin-left: 10px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .demo-section { background: white; padding: 20px; border-radius: 10px; margin: 20px 0; }
+        .feature-highlight { background: #dc2626; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .arrow { color: #dc2626; font-size: 20px; margin: 10px 0; text-align: center; }
+        .sorting-rule { background: #fee2e2; padding: 10px; border-radius: 5px; margin: 5px 0; border-left: 4px solid #dc2626; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📌 TimeSafe Delivery - New Orders ALWAYS Stay at Top!</h1>
+
+        <div class="demo-section">
+            <h2>🚫 Problem Fixed: New Orders No Longer Scroll Down</h2>
+            <p><strong>Before:</strong> New orders would appear and then scroll down as the list updated.</p>
+            <p><strong>Now:</strong> <span class="feature-highlight">New orders are PINNED to the top</span> and never move down!</p>
+        </div>
+
+        <div class="pinning-demo">
+            <h2>📊 New Order Sorting Logic</h2>
+            <p><strong>Aggressive Sorting Rules (in order of priority):</strong></p>
+            
+            <div class="sorting-rule">
+                <strong>📌 PRIORITY 1:</strong> New orders ('placed' status) ALWAYS appear first
+            </div>
+            <div class="sorting-rule">
+                <strong>⏰ PRIORITY 2:</strong> Among new orders, newest placement first
+            </div>
+            <div class="sorting-rule">
+                <strong>🔄 PRIORITY 3:</strong> Processing orders by status (accepted → prepared → delivery)
+            </div>
+            <div class="sorting-rule">
+                <strong>✅ PRIORITY 4:</strong> Completed orders by recency
+            </div>
+        </div>
+
+        <div class="pinning-demo">
+            <h2>📋 Live Order List Example</h2>
+            <p><strong>This is how orders appear in vendor dashboard:</strong></p>
+            
+            <!-- New Orders - Always at Top -->
+            <div class="order-item new-order">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong>🔥 Order #NEW123</strong> - Just placed
+                        <span class="pinned-indicator">PINNED TO TOP</span>
+                        <br><small>⏰ 2m 15s ago • Status: placed</small>
+                    </div>
+                    <div class="order-status">NEW ORDER</div>
+                </div>
+            </div>
+            
+            <div class="order-item new-order">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong>🔥 Order #NEW456</strong> - Waiting for response
+                        <span class="pinned-indicator">PINNED TO TOP</span>
+                        <br><small>⏰ 8m 32s ago • Status: placed</small>
+                    </div>
+                    <div class="order-status">NEW ORDER</div>
+                </div>
+            </div>
+            
+            <div class="arrow">⬇️ Other orders appear below (never push new orders down)</div>
+            
+            <!-- Processing Orders -->
+            <div class="order-item processing-order">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong>Order #PROC789</strong> - Being prepared
+                        <br><small>⏰ 25m 45s ago • Status: accepted</small>
+                    </div>
+                    <div style="color: #2563eb;">PROCESSING</div>
+                </div>
+            </div>
+            
+            <!-- Completed Orders -->
+            <div class="order-item completed-order">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong>Order #DONE321</strong> - Delivered successfully
+                        <br><small>⏰ 2h 15m 30s ago • Status: delivered</small>
+                    </div>
+                    <div style="color: #6b7280;">COMPLETED</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>✅ Key Features Implemented</h2>
+            <ul>
+                <li>🔒 <strong>Fixed Position:</strong> New orders never scroll down or move position</li>
+                <li>📌 <strong>Visual Pinning:</strong> "📌 PINNED TO TOP" indicator on new orders</li>
+                <li>🚨 <strong>Urgent Styling:</strong> Red borders, pulsing badges, special background</li>
+                <li>⏰ <strong>Real-time Timing:</strong> Exact timing updates every second</li>
+                <li>🔄 <strong>Auto-refresh:</strong> List updates every 30 seconds but new orders stay top</li>
+                <li>📱 <strong>All Panels:</strong> Same behavior in vendor, delivery, and admin dashboards</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0; padding: 20px; background: #dc2626; color: white; border-radius: 10px;">
+            <h2>🎯 Test New Order Pinning Now!</h2>
+            <p>Login as a vendor and place test orders to see them pinned at the top!</p>
+            <p><strong>Vendor Login:</strong> vendor@test.com / password123</p>
+            <div style="margin: 20px 0;">
+                <a href="https://timesafe-payments.preview.emergentagent.com" 
+                   style="background: white; color: #dc2626; padding: 12px 24px; border-radius: 5px; 
+                          text-decoration: none; font-weight: bold;">
+                    🏪 Test Vendor Dashboard
+                </a>
+            </div>
+            <p style="font-size: 14px; opacity: 0.9;">New orders will appear at the top and NEVER scroll down!</p>
+        </div>
+    </div>
+</body>
+</html>

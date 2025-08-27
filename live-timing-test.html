@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Timing Test - TimeSafe Delivery</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9fafb;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        h1 { 
+            color: #059669;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .timestamp-test {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .debug-info {
+            background: #f3f4f6;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // LiveTimestamp Component - EXACT COPY from App.js
+        const LiveTimestamp = ({ dateString, status, context = "" }) => {
+          const [tick, setTick] = useState(0);
+          
+          useEffect(() => {
+            // FORCE UPDATE EVERY SINGLE SECOND - NO MATTER WHAT
+            const interval = setInterval(() => {
+              setTick(prev => prev + 1);
+            }, 1000);
+            
+            return () => clearInterval(interval);
+          }, []);
+          
+          if (!dateString) return React.createElement('span', {className: 'text-red-500 font-bold'}, '⚠️ NO TIME');
+          
+          // Calculate timing FRESH every render
+          const now = new Date();
+          const orderDate = new Date(dateString);
+          const diffMs = now.getTime() - orderDate.getTime();
+          const diffSec = Math.max(0, Math.floor(diffMs / 1000));
+          
+          let display = '';
+          let color = '';
+          let icon = '';
+          
+          if (diffSec < 60) {
+            display = `${diffSec}s ago`;
+            icon = '🆕';
+            color = 'background: #dcfce7; color: #166534; border: 2px solid #bbf7d0;';
+          } else if (diffSec < 3600) {
+            const m = Math.floor(diffSec / 60);
+            const s = diffSec % 60;
+            display = `${m}m ${s}s ago`;
+            icon = '🕒';
+            color = 'background: #dbeafe; color: #1e40af; border: 2px solid #93c5fd;';
+          } else if (diffSec < 86400) {
+            const h = Math.floor(diffSec / 3600);
+            const m = Math.floor((diffSec % 3600) / 60);
+            const s = diffSec % 60;
+            display = `${h}h ${m}m ${s}s ago`;
+            icon = '⚠️';
+            color = 'background: #fee2e2; color: #991b1b; border: 2px solid #fca5a5;';
+          } else {
+            const d = Math.floor(diffSec / 86400);
+            const h = Math.floor((diffSec % 86400) / 3600);
+            display = `${d}d ${h}h ago`;
+            icon = '📅';
+            color = 'background: #f3f4f6; color: #374151; border: 2px solid #d1d5db;';
+          }
+          
+          return React.createElement('div', 
+            {
+              style: {
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '8px 12px',
+                borderRadius: '8px',
+                fontFamily: 'monospace',
+                fontWeight: 'bold',
+                fontSize: '14px',
+                ...Object.fromEntries(color.split(';').filter(s => s.trim()).map(s => s.split(':').map(p => p.trim())))
+              }
+            },
+            React.createElement('span', {style: {fontSize: '16px', animation: 'pulse 2s infinite'}}, icon),
+            React.createElement('span', {style: {fontWeight: '900'}}, display),
+            React.createElement('span', {style: {width: '8px', height: '8px', background: '#10b981', borderRadius: '50%', animation: 'ping 1s infinite'}}),
+            React.createElement('span', {style: {fontSize: '12px', background: 'white', padding: '2px 4px', borderRadius: '4px'}}, `#${tick}`),
+            context && React.createElement('span', {style: {fontSize: '12px', opacity: '0.75'}}, `• ${context}`)
+          );
+        };
+
+        // Test Component
+        const TimingTest = () => {
+          const [currentTime, setCurrentTime] = useState(new Date());
+
+          useEffect(() => {
+            const interval = setInterval(() => {
+              setCurrentTime(new Date());
+            }, 1000);
+            return () => clearInterval(interval);
+          }, []);
+
+          // Test timestamps - some old, some recent
+          const testTimes = [
+            new Date(), // Now
+            new Date(Date.now() - 30 * 1000), // 30 seconds ago
+            new Date(Date.now() - 2 * 60 * 1000), // 2 minutes ago
+            new Date(Date.now() - 5 * 60 * 1000 - 30 * 1000), // 5m 30s ago
+            new Date(Date.now() - 1 * 60 * 60 * 1000 - 15 * 60 * 1000), // 1h 15m ago
+            new Date(Date.now() - 2 * 60 * 60 * 1000 - 30 * 60 * 1000 - 45 * 1000), // 2h 30m 45s ago
+            new Date(Date.now() - 5 * 60 * 60 * 1000 - 30 * 60 * 1000), // 5h 30m ago (user's complaint)
+            new Date(Date.now() - 25 * 60 * 60 * 1000) // 25 hours ago
+          ];
+
+          return React.createElement('div', {className: 'container'},
+            React.createElement('h1', null, '⏰ TimeSafe Delivery - Live Timing Test'),
+            
+            React.createElement('div', {style: {background: '#f0f9ff', padding: '15px', borderRadius: '8px', marginBottom: '20px'}},
+              React.createElement('h3', null, 'Current Time (Updates Every Second)'),
+              React.createElement('div', {style: {fontSize: '18px', fontWeight: 'bold', color: '#0369a1'}}, 
+                currentTime.toLocaleString()
+              )
+            ),
+
+            React.createElement('h3', null, 'LiveTimestamp Component Tests'),
+            React.createElement('p', null, 'These should update every second with live timing:'),
+
+            testTimes.map((time, index) => 
+              React.createElement('div', {key: index, className: 'timestamp-test'},
+                React.createElement('h4', null, `Test ${index + 1}: ${time.toLocaleString()}`),
+                React.createElement('div', null,
+                  React.createElement(LiveTimestamp, {
+                    dateString: time.toISOString(),
+                    status: 'placed',
+                    context: `Test case ${index + 1}`
+                  })
+                ),
+                React.createElement('div', {className: 'debug-info'},
+                  `Original: ${time.toISOString()}`,
+                  React.createElement('br'),
+                  `Expected: Should show live countdown from ${Math.floor((Date.now() - time.getTime()) / 1000)} seconds ago`
+                )
+              )
+            ),
+
+            React.createElement('div', {style: {marginTop: '30px', padding: '15px', background: '#fef3c7', borderRadius: '8px'}},
+              React.createElement('h3', null, '🔍 What to Look For:'),
+              React.createElement('ul', null,
+                React.createElement('li', null, 'All timestamps should update every second'),
+                React.createElement('li', null, 'The #tick counter should increment continuously'),
+                React.createElement('li', null, 'Times should be accurate and match expected values'),
+                React.createElement('li', null, 'No "old time" should stay static (like 5h 30m ago)')
+              )
+            )
+          );
+        };
+
+        ReactDOM.render(React.createElement(TimingTest), document.getElementById('root'));
+    </script>
+</body>
+</html>
